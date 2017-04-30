@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>推荐</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		
+		<style>
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+			padding: 2px;
+		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell p{
+			font-size: 12px;
+		}
+		.mui-grid-view.mui-grid-9.hot-goods .mui-table-view-cell img{
+			padding: 0;
+		}
+		.mui-table-view li p{
+			margin:0;
+		}
+		</style>
+	</head>
+
+	<body>
+	<header class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title">推荐</h1>
+			<a class="mui-btn  mui-btn-link mui-pull-right" id="pub-new">发布</a>
+		</header>
+	<div class="mui-content" >	
+	 <div class="swiper-container home-rec" id="home-slider">
+	        <div class="swiper-wrapper" id="slider-item">
+	            <div class="swiper-slide" >
+	            	 <img src="../../images/ad_1.png" class="img-responsive" />
+	            </div>
+	        </div>
+	        <div class="swiper-pagination"></div>
+	</div>
+ <div id="rec-all">
+	<div class="box-container">
+				<p class="text-center box-title">精品分类</p>
+				<div class="box-content">
+					<ul class="mui-table-view mui-grid-view ">
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container tools" data-url="http://m.fang.com/esf">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">二手房屋</p>
+												<p class="sub-txt">低价二手房</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_loan.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container tools" data-url="http://zhaopin.baidu.com/m">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">附近职位</p>
+												<p class="sub-txt">离家近的好工作</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_partjob.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container goods-cate" data-cateid="13">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">闲置物品</p>
+												<p class="sub-txt">闲置物品真心送</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_secgood.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container goods-cate" data-cateid="12">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">二手轿车</p>
+												<p class="sub-txt">好车天天看</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_seccar.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+						</ul>
+				</div>
+			</div>
+			
+ <div class="box-container">
+		<p class="text-center box-title">大众喜欢</p>
+				<div class="box-content swiper-container" id="mass-love">
+					<div class="swiper-wrapper ">
+					<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6" data-cateid="1">
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									
+							</li>
+						</ul>
+					</div>
+					<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+				</div>
+			</div>
+	<div class="box-container">
+				<p class="text-center box-title">诚信商家 
+				<a class="red mui-pull-right more-merchant" href="#" style="position: absolute; right: 10px;">更多</a>
+				</p>
+				
+				<div class="box-content">
+					<ul class="mui-table-view mui-grid-view ">
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container tools" data-url="http://m.fang.com/esf">
+									<div class="table-cell right" style="padding-right: 10px;">
+										<img src="../../images/icon/icon_loan.png" class="img-responsive" style="padding: 0;" />
+									</div>
+									<div class="table-cell left" >
+										<p class="mui-ellipsis">大中电器</p>
+										<p class="sub-txt">就是真的好</p>
+									</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container tools" data-url="http://zhaopin.baidu.com/m">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">附近职位</p>
+												<p class="sub-txt">离家近的好工作</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_partjob.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container goods-cate" data-cateid="13">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">闲置物品</p>
+												<p class="sub-txt">闲置物品真心送</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_secgood.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+							<li class="mui-table-view-cell mui-col-xs-6   ">
+								<div class="table-container goods-cate" data-cateid="12">
+											<div class="table-cell left">
+												<p class="mui-ellipsis">二手轿车</p>
+												<p class="sub-txt">好车天天看</p>
+											</div>
+											<div class="table-cell right">
+												<img src="../../images/icon/icon_seccar.png" class="img-responsive" style="padding: 0;" />
+											</div>
+								</div>		
+							</li>
+						</ul>
+				</div>
+			</div>
+	<div class="box-container">
+		<p class="text-center box-title">热门商品</p>
+				<div class="box-content swiper-container" id="rec-goods">
+					<div class="swiper-wrapper ">
+					<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9 hot-goods">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							
+						</ul>
+					</div>
+					<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_1.jpeg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_2.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_3.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" data-cateid="1">
+									<img src="../../images/cube_4.jpg" class="img-responsive" />
+									<p class="mui-ellipsis">好东西</p>
+									<p class="red">￥ 1200.00</p>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+					
+				</div>
+			</div>
+	<div class="box-container">
+				<p class="text-center box-title">新品上市</p>
+				<div class="box-content" id="new-goods">
+					<ul class="mui-table-view ">
+						<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../../images/cube_1.jpeg">
+							<div class="mui-media-body">
+								<p>推荐1</p>
+								<p class='mui-ellipsis sub-txt'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+							</div>
+						</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../../images/cube_2.jpg">
+							<div class="mui-media-body">
+								<p>推荐2</p>
+								<p class='mui-ellipsis sub-txt'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+							</div>
+						</a>
+						</li>
+							
+					</ul>
+				</div>
+			</div>
+	
+	
+ </div>
+	
+	</div>	
+	</body>
+	<script src="../../js/mui.min.js "></script>
+	<script src="../../js/app.js"></script>
+	<script type="text/javascript" src="../../js/mui.view.js" ></script>
+	<script type="text/javascript" src="../../js/config.js" ></script>
+	<script src="../../js/zepto_1.1.3.js"></script>
+	<script type="text/javascript" src="../../js/swiper.min.js" ></script>
+	<script>
+		mui.init();
+		var swiper1;
+		var swiper2;
+		//获取用户信息
+			
+			mui.plusReady(function() {
+			 getRecGoods();												
+			});
+		
+		window.addEventListener('show',function(){
+			getRecGoods();
+		});
+		
+		function getRecGoods(){
+			//获取用户信息
+			$.ajax({
+				type:"post",
+				url:app.getAuthUrl(config.getRecGoodsUrl) ,
+				success:function(rs){
+					console.log(rs);
+					$('#rec-all').html(rs);
+					swiper1= new Swiper('#rec-goods', {
+				        pagination: '.swiper-pagination',
+				        paginationClickable: true,
+				        spaceBetween: 0,
+				        loop:true,
+				        autoplayDisableOnInteraction: false
+				    });
+//				    swiper2= new Swiper('#mass-love', {
+//				        pagination: '.swiper-pagination',
+//				        paginationClickable: true,
+//				        spaceBetween: 0,
+//				        loop:true,
+//				        autoplayDisableOnInteraction: false
+//				    });
+				},
+				error:function(e){
+					console.log(e.status);
+					console.log(JSON.stringify(e));
+				}
+			});
+			
+				
+		}
+		
+		$(document).on('click','.mui-delete-cart',function(){
+			var id=$(this).data('id');
+			$.ajax({
+				type:"post",
+				url:config.deleteCartUrl,
+				data:{
+					user:app.getUserState(),
+					data:{
+						id:id
+					}
+				},
+				dataType:'json',
+				success:function(rs){
+					if(rs.result=='success'){
+						mui.toast('删除成功!');
+						getShoppingCart();
+					}
+				},
+				error:function(e){
+					console.log(JSON.stringify(e));
+				}
+			});
+		})
+		
+		mui(document).on('tap','.goods',function(){
+			var id=$(this).data('id');
+			console.log(id);
+			mui.openWindow({
+				url:'../goods-detail.html',
+				extras:{
+					goodsid:id
+				}
+			})
+		})
+		  $('#pub-new').click(function(){
+			mui.openWindow({
+				url:'../pub/pub.html',
+				extras:{
+					action:'new'
+				}
+			})
+		})
+		  mui(document).on('tap','.person-goods',function(){
+				var uid=$(this).data('uid');
+				mui.openWindow({
+					url:'../user-goods.html',
+					extras:{
+						uid:uid
+					}
+				})
+			});
+			
+			 mui(document).on('tap','.more-merchant',function(){
+				mui.openWindow({
+					url:'trust_merchant.html',
+				})
+			});
+		
+	
+	</script>
+
+</html>

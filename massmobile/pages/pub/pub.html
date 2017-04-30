@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>大众广告</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar .mui-pull-left .mui-icon {
+				padding-right: 5px;
+				font-size: 28px;
+			}
+			
+			.mui-bar .mui-btn {
+				font-weight: normal;
+				font-size: 17px;
+			}
+			
+			.mui-bar .mui-btn-link {
+				top: 1px;
+			}
+			
+			.mui-content img{
+				width: 100%;
+			}
+			.hm-description{
+				margin: .5em 0 2em;
+			}
+			
+			.hm-description>li {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			
+			.mui-bar.mui-bar-transparent a{
+				padding-top: 10px;
+			}
+			.mui-bar.mui-bar-transparent .mui-icon{
+				padding: 0;
+				font-size: 20px;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				padding: 5px 5px;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-closeempty"></a>
+			<h1 class="mui-title">选择分类</h1>
+			
+		</header>
+
+		<div class="mui-content cate-container flex-center">
+			<div  class="swiper-container" id="function-slide" style="margin-top: -5px;">
+				<div class="swiper-wrapper" >
+					<div class=" swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="1">
+								<a href="#" >
+									<img src="../../images/icon/icon_newhouse.png" />
+									<div class="mui-media-body">新房</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="2">
+								<a href="#" >
+									<img src="../../images/icon/icon_renthouse.png" />
+									<div class="mui-media-body">租房</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="3">
+								<a href="#" >
+									<img src="../../images/icon/icon_newcar.png" />
+									<div class="mui-media-body">新车</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate " data-cateid="4">
+								<a href="#" >
+									<img src="../../images/icon/icon_fulltimejob.png" />
+									<div class="mui-media-body">招全职</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="5" >
+								<a href="#"  >
+									<img src="../../images/icon/icon_resume.png" />
+									<div class="mui-media-body">简历</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="6">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_spcar.png" />
+									<div class="mui-media-body">专车</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="10" >
+								<a href="#" >
+									<img src="../../images/icon/icon_zuche.png" />
+									<div class="mui-media-body">租车</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="7">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_sharecar.png" />
+									<div class="mui-media-body">拼车</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="8" >
+								<a href="#" >
+									<img src="../../images/icon/icon_shopping.png" />
+									<div class="mui-media-body">购物</div>
+								</a>
+							</li>
+							
+							
+						</ul>
+					</div>
+						<div class=" swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="9" >
+								<a href="#" >
+									<img src="../../images/icon/icon_food.png" />
+									<div class="mui-media-body">美食</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="11">
+								<a href="#" >
+									<img src="../../images/icon/icon_seccar.png" />
+									<div class="mui-media-body">二手房</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="12">
+								<a href="#" >
+									<img src="../../images/icon/icon_sechouse.png" />
+									<div class="mui-media-body">二手车</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="13">
+								<a href="#" >
+									<img src="../../images/icon/icon_secgood.png" />
+									<div class="mui-media-body">二手物</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate " data-cateid="14">
+								<a href="#" >
+									<img src="../../images/icon/icon_partjob.png" />
+									<div class="mui-media-body">招兼职</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="15" >
+								<a href="#"  >
+									<img src="../../images/icon/icon_service.png" />
+									<div class="mui-media-body">服务</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="16">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_entain.png" />
+									<div class="mui-media-body">娱乐</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="17">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_tour.png" />
+									<div class="mui-media-body">旅游</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="18" >
+								<a href="#" >
+									<img src="../../images/icon/icon_sleep.png" />
+									<div class="mui-media-body">住宿</div>
+								</a>
+							</li>
+							
+						</ul>
+					</div>
+						<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="19">
+								<a href="#" >
+									<img src="../../images/icon/icon_drive.png" />
+									<div class="mui-media-body">代驾</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="20" >
+								<a href="#" >
+									<img src="../../images/icon/icon_daiban.png" />
+									<div class="mui-media-body">代办</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="21">
+								<a href="#" >
+									<img src="../../images/icon/icon_friend.png" />
+									<div class="mui-media-body">交友</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="22">
+								<a href="#" >
+									<img src="../../images/icon/icon_beauty.png" />
+									<div class="mui-media-body">丽人</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="23">
+								<a href="#" >
+									<img src="../../images/icon/icon_train.png" />
+									<div class="mui-media-body">培训</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate " data-cateid="24">
+								<a href="#" >
+									<img src="../../images/icon/icon_jiazhuang.png" />
+									<div class="mui-media-body">家装</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="25" >
+								<a href="#"  >
+									<img src="../../images/icon/icon_jiazheng.png" />
+									<div class="mui-media-body">家政</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="26">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_gongyi.png" />
+									<div class="mui-media-body">公益</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="27">
+								<a href="#" id="tiyan">
+									<img src="../../images/icon/icon_zipai.png" />
+									<div class="mui-media-body">自拍</div>
+								</a>
+							</li>
+							<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 cate-list" >
+								<a href="#" >
+									<img src="../../images/icon/icon_more.png" />
+									<div class="mui-media-body">更多</div>
+								</a>
+							</li>-->
+						</ul>
+					</div>
+					<div class="swiper-slide">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="28" >
+								<a href="#" >
+									<img src="../../images/icon/icon_live.png" />
+									<div class="mui-media-body">直播</div>
+								</a>
+							</li>-->
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="29" >
+								<a href="#" >
+									<img src="../../images/icon/icon_oversea.png" />
+									<div class="mui-media-body">海外</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="30" >
+								<a href="#" >
+									<img src="../../images/icon/icon_oil.png" />
+									<div class="mui-media-body">加油</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="31" >
+								<a href="#" >
+									<img src="../../images/icon/icon_baoxian.png" />
+									<div class="mui-media-body">保险服务</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 goods-cate" data-cateid="32" >
+								<a href="#" >
+									<img src="../../images/icon/icon_news.png" />
+									<div class="mui-media-body">图片新闻</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					
+				</div>	
+				<div class="swiper-pagination" style="bottom:-5px" id="swiper-pagination-function"></div>
+				
+			</div>
+		    
+		    
+			
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js" ></script>
+	<script type="text/javascript" src="../../js/jquery-1.8.3.min.js" ></script>
+	<script type="text/javascript" src="../../js/swiper.min.js" ></script>
+	<script type="text/javascript" src="../../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+		mui.ready(function() {
+		
+		});
+		 var fswiper= new Swiper('#function-slide', {
+	        pagination: '#swiper-pagination-function',
+	        paginationClickable: true,
+	        spaceBetween: 0,
+	        loop:true,
+	        autoplayDisableOnInteraction: false
+	    });
+	    
+	    mui(document).on('tap','.goods-cate',function(){
+			var cateid=$(this).data('cateid');
+			var cateName=$(this).find('.mui-media-body').html();
+			console.log(cateid);
+			mui.openWindow({
+				url:'publish.html',
+				extras:{
+					cateid:cateid,
+					cateName:cateName
+				}
+			})
+		})
+	 </script>
+
+	</body>
+
+</html>
