@@ -73,12 +73,12 @@
 				if(mui.os.ios){
 					msg.href = "https://itunes.apple.com/cn/app/e-you-wang/id1191691825?mt=8";
 				}else{
-					msg.href="http://android.myapp.com/myapp/detail.htm?apkName=com.young.eoil";
+					msg.href="http://android.myapp.com/myapp/detail.htm?apkName=com.yangshunfu.mass";
 //					msg.href="http://www.wandoujia.com/apps/com.young.eoil";
 				}
 				
-				msg.title = "e油网";
-				msg.content = "e油网是由北京优加石化网络科技有限公司为石化行业倾力打造的永久免费发布信息的平台";
+				msg.title = "大众广告";
+				msg.content = "大众广告是由北京优加石化网络科技有限公司为倾力打造的永久免费发布信息的平台";
 //				if (~share.id.indexOf('weibo')) {
 //					msg.content += "；体验地址：http://suoxinmr.com/";
 //				}

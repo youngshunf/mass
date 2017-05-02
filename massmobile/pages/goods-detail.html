@@ -600,8 +600,12 @@
 		});
 	})
 	
-	
+	var tempSubmit=false;
 	mui(document).on('tap','#template-set',function(){
+		if(tempSubmit){
+			return false;
+		}
+		tempSubmit=true;
 		var data={
 			id:goodsData.goods.id,
 		};
@@ -623,7 +627,7 @@
 			},
 			error:function(e){
 				console.log(e.status);
-				mui.toast('提交订单失败!');
+				mui.toast('模板设置失败!');
 			}
 		});
 	})

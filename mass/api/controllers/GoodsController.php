@@ -400,6 +400,7 @@ class GoodsController extends ActiveController
        $order->goodsid=$goods->id;
        $order->number=$number;
        $order->goods_price=$goods->price;
+       $order->keep_type=$goods->keep_type;
        $order->cateid=$goods->cateid;
        $order->goods_name=$goods->name;
        $order->amount=$rate/100*$goods->price*$number;
@@ -455,6 +456,12 @@ class GoodsController extends ActiveController
        if($order->status==3){
            return false;
        }
+       $user=yii::$app->user->identity;
+       if($order->user_guid==$user->user_guid){
+           $orderType=1;
+       }elseif ($order->seller_user==$user->user_guid){
+           $orderType=2;
+       }
 //        $config=yii::$app->params['alipayConfig'];
 //        $c = new \AopClient;
 //        $c->gatewayUrl =$config['gatewayUrl'];
@@ -505,8 +512,8 @@ class GoodsController extends ActiveController
 //                        . "\"total_amount\": \"0.01\","
 //                            . "\"product_code\":\"QUICK_MSECURITY_PAY\""
 //                                . "}";
-      $orderDesc=$order->type==1?'[供货保证金]':'[进货保证金]';
-      $orderno=$order->orderno;
+      $orderDesc=$orderType==1?'[进货保证金]':'[供货保证金]';
+//       $orderno=$order->orderno;
 //       if ($orderType==2){
 //           $orderno=$order->seller_orderno;
 //       }
@@ -518,7 +525,7 @@ class GoodsController extends ActiveController
           $bizContent=[
               'body'=>$orderDesc.', 数量:'.$order->number,
               'subject'=>$order->goods_name,
-              'out_trade_no'=>$order->orderno,
+              'out_trade_no'=>$orderno,
               'total_amount'=>$order->amount,
               'product_code'=>'QUICK_MSECURITY_PAY',
               'timeout_express'=>'30m',

@@ -464,12 +464,12 @@ class SiteController extends Controller
         $c = new \TopClient;
 //         $c ->appkey = '23440632' ;
 //         $c ->secretKey = '74cd79711b874e94668166b8a6ac5146';
-        $c ->appkey = '23565049' ;
-        $c ->secretKey = '1405a1dd6066226c0c56ddda34f3b05e';
+        $c ->appkey = '23781471' ;
+        $c ->secretKey = '03dacc777855b9deb34eac13bb1571cd';
         $req = new \AlibabaAliqinFcSmsNumSendRequest;
         $req ->setExtend( "" );
         $req ->setSmsType( "normal" );
-        $req ->setSmsFreeSignName( "e油网" );
+        $req ->setSmsFreeSignName( "大众广告" );
         $param=[
             'code'=>(string)$code
         ];
