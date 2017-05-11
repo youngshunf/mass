@@ -478,6 +478,16 @@
 				})
 			});
 		
+		 mui(document).on('tap', '.goods-cate', function() {
+				var cateid = $(this).data('cateid');
+				console.log(cateid);
+				mui.openWindow({
+					url: 'goods.html',
+					extras: {
+						cateid: cateid
+					}
+				})
+			})
 	
 	</script>
 

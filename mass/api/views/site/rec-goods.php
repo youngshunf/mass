@@ -36,13 +36,13 @@ use common\models\GoodsPhoto;
 						    ?>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 goods" data-id="<?= $v->id?>">
 												<p class="mui-ellipsis"><?= $v->name?></p>
-            									<p class="sub-txt"> <?= $v->desc?></p>
+            									<p class="mui-ellipsis sub-txt"> <?= $v->desc?></p>
             									<img src="<?= yii::$app->params['photoUrl'].$photo->path.'thumb/'.$photo->photo?>" />
             							</li>
 							<?php }else{?>
 									<li class="mui-table-view-cell mui-media mui-col-xs-6 goods" data-id="<?= $v->id?>">
 												<p class="mui-ellipsis"><?= $v->name?></p>
-            									<p class="sub-txt"> <?= $v->desc?></p>
+            									<p class="mui-ellipsis sub-txt"> <?= $v->desc?></p>
             									<img src="<?= yii::$app->params['photoUrl'].$photo->path.'mobile/'.$photo->photo?>" />
             						</li>
 							<?php }?>

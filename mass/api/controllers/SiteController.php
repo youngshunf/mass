@@ -93,7 +93,7 @@ class SiteController extends Controller
     }
     
     public function actionGetEoilTop(){
-        $news=News::find()->andWhere(['is_recommend'=>1,'cateid'=>'2'])->orderBy('created_at desc')->limit(10)->all();
+        $news=News::find()->andWhere(['type'=>'1'])->orderBy('created_at desc')->limit(10)->all();
         return $this->renderAjax('eoil-top',['news'=>$news]);
     }
     
@@ -104,7 +104,7 @@ class SiteController extends Controller
     
     public function actionGetHomeNews(){
         $news=News::find()->orderBy('created_at desc')->limit(5)->all();
-        $newsCate=NewsCate::find()->orderBy('created_at asc')->limit(3)->all();
+        $newsCate=NewsCate::find()->andWhere(['type'=>'0'])->orderBy('created_at desc')->limit(4)->all();
         return $this->renderAjax('home-news',['news'=>$news,'newsCate'=>$newsCate
         ]);
     }

@@ -108,7 +108,7 @@ var pubApp=angular.module('eoil',['eoilServices'])
 		
 	}
 	
-	$scope.confirmOrder=function(){
+	$scope.confirmOrder=function(item){
 		var data={
 			orderid:item.order.id
 		};

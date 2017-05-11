@@ -1,9 +1,9 @@
-var serverBaseUrl="http://api.mass.mi2you.com/";
-var photoUrl="http://images.mass.mi2you.com/photo/";
-var avatarUrl="http://images.mass.mi2you.com/photo/";
-//var serverBaseUrl="http://api.51eu.cc/";
-//var photoUrl="http://images.51eu.cc/photo/";
-//var avatarUrl="http://images.51eu.cc/photo/";
+//var serverBaseUrl="http://api.mass.mi2you.com/";
+//var photoUrl="http://images.mass.mi2you.com/photo/";
+//var avatarUrl="http://images.mass.mi2you.com/photo/";
+var serverBaseUrl="http://api.51guanggao.cc/";
+var photoUrl="http://images.51guanggao.cc/photo/";
+var avatarUrl="http://images.51guanggao.cc/photo/";
 var config={
 	autoLoginUrl:serverBaseUrl+'site/auto-login',
 	checkUpdateUrl:serverBaseUrl+"site/check-update",//检查登录url
@@ -26,6 +26,8 @@ var config={
 	updatePostUrl:serverBaseUrl+'user/update-post',//修改学历与职业信息
 	updateProfileUrl:serverBaseUrl+'user/update-profile',//修改个人信息
 	checkUserAccountUrl:serverBaseUrl+'user/check-account',//更新用户帐户信息
+	submitAppealUrl:serverBaseUrl+'goods/submit-appeal',//提交申诉
+	submitCommentUrl:serverBaseUrl+'goods/submit-comment',//提交评论
 	updateUserDataUrl:serverBaseUrl+'user/user-data',//用户数据提交
 	getWalletUrl:serverBaseUrl+'user/get-wallet',
 	getMessageStateUrl:serverBaseUrl+'user/get-message-state',//获取消息状态

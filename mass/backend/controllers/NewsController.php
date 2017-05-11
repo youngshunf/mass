@@ -48,7 +48,7 @@ class NewsController extends Controller
     {
         
         $dataProvider = new ActiveDataProvider([
-            'query'=>NewsCate::find(),
+            'query'=>NewsCate::find()->orderBy('created_at desc'),
             'pagination'=>[
                 'pagesize'=>10
             ]

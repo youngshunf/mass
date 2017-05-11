@@ -37,7 +37,7 @@ use common\models\CommonUtil;
     				<p class="sub-txt"><?= $item->label?>:<?= $item->value?></p>
     				<?php } }?>
     				<?php if($model->hide_phone==0){?>
-    				<p class="sub-txt">电话:<?= $model->mobile?></p>
+    				<p class="sub-txt">电话:<a href="tel:<?= $model->mobile?>"><?= $model->mobile?></a> </p>
     				<?php }?>
     				<p class="sub-txt">地址:<?= $model->address?>
     				<a href="#" id="start-nav" class="mui-icon mui-icon-location mui-pull-right">导航</a>
