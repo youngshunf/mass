@@ -91,10 +91,10 @@ if($user->user_guid==$model->user_guid){
 				<?php }?>
 			</li>
 			<?php }?>
-			<?php if($model->user_guid==$user->user_guid && $lelfNum>0){?>
+			<?php if($model->user_guid==$user->user_guid && $leftNum>0){?>
 			<li class="text-center " style="padding: 10px;">
 				<input class="mui-input" type="number" placeholder="请输入使用量" id="oil-num" />
-				<button class="mui-btn mui-btn-success center" id="submit-oil" data-left="<?= $lelfNum?>" data-orderid="<?= $model->id ?>"> 提交使用量</button>
+				<button class="mui-btn mui-btn-success center" id="submit-oil" data-left="<?= $leftNum?>" data-orderid="<?= $model->id ?>"> 提交使用量</button>
 			</li>
 			<?php }?>
 			</ul>

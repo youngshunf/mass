@@ -108,11 +108,21 @@ var pubApp=angular.module('eoil',['eoilServices'])
 		
 	}
 	
+	$scope.appealOrder=function(item){
+		mui.openWindow({
+			url:'appeal.html',
+			extras:{
+				orderid:item.order.id
+			}
+		})
+	}
+	
 	$scope.confirmOrder=function(item){
 		var data={
 			orderid:item.order.id
 		};
-		plus.nativeUI.confirm('双方确认履约后,保证金将在7日各自账户，您确定确认履约吗?',function(){
+		plus.nativeUI.confirm('双方确认履约后,保证金将在7日各自账户，您确定确认履约吗?',function(e){
+			if(e.index==1){
 			mui.ajax({
 			type:"post",
 			url:app.getAuthUrl(config.confirmOrderUrl),
@@ -137,7 +147,8 @@ var pubApp=angular.module('eoil',['eoilServices'])
 				mui.toast('操作失败:'+e.status);
 			}
 		})
-		},'提示');
+			}
+		},'提示',['取消','确定']);
 	}
 	$scope.cancelOrder=function(item){
 		var data={

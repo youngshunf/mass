@@ -87,6 +87,7 @@ var config={
 	confirmOrderUrl:serverBaseUrl+'goods/confirm-order',
 	cancelOrderUrl:serverBaseUrl+'goods/cancel-order',
 	uploadLocationUrl:serverBaseUrl+'user/upload-location',
+	getUserInfoUrl:serverBaseUrl+'user/get-userinfo',
 	getUserLocUrl:serverBaseUrl+'user/get-user-location',
 	updateShareScoreUrl:serverBaseUrl+'user/update-share-score',
 	authLoginUrl:serverBaseUrl+'site/auth-login',

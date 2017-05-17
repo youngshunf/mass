@@ -34,8 +34,10 @@ use common\models\CommonUtil;
     				$fields=json_decode($model->template_fields);
     				foreach ($fields as $item){
     				    ?>
-    				<p class="sub-txt"><?= $item->label?>:<?= $item->value?></p>
-    				<?php } }?>
+    				    <?php if(!empty($item->value)){?>
+    				<p class="sub-txt"><?= @$item->label?>:<?= @$item->value?></p>
+    					
+    				<?php } } }?>
     				<?php if($model->hide_phone==0){?>
     				<p class="sub-txt">电话:<a href="tel:<?= $model->mobile?>"><?= $model->mobile?></a> </p>
     				<?php }?>

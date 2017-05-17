@@ -123,15 +123,26 @@
 	<script src="../../js/zepto_1.1.3.js"></script>
 	<script src="../../js/config.js"></script>
 	<script>
-		mui.init();
-								
 		
-		mui.plusReady(function(){
+		
+		function getUserInfo(){
 			getScoreList();
-			var userInfo=app.getUserInfo();
-			$('#cur-score').html(userInfo.score+"积分");
-		
-		});
+			$.ajax({
+				type:"post",
+				url:app.getAuthUrl(config.getUserInfoUrl),
+				success:function(rs){
+					rs=JSON.parse(rs);
+					var userInfo=rs.data;
+					$('#cur-score').html(userInfo.score+"积分");
+				},
+				error:function(e){
+					var userInfo=app.getUserInfo();
+					$('#cur-score').html(userInfo.score+"积分");
+					console.log(JSON.stringify(e));
+				}
+			});
+			
+		}
 		
 		function getScoreList(){
 			var userInfo=app.getUserState();
@@ -157,7 +168,12 @@
 			
 		}
 		
+		mui.init();
+		mui.plusReady(function(){
+			
+			getUserInfo();
 		
+		});
 		
 		
 		

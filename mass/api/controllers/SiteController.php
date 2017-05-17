@@ -93,7 +93,7 @@ class SiteController extends Controller
     }
     
     public function actionGetEoilTop(){
-        $news=News::find()->andWhere(['type'=>'1'])->orderBy('created_at desc')->limit(10)->all();
+        $news=News::find()->andWhere(['cateid'=>'5'])->orderBy('created_at desc')->limit(10)->all();
         return $this->renderAjax('eoil-top',['news'=>$news]);
     }
     

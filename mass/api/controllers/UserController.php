@@ -409,6 +409,12 @@ class UserController extends ActiveController
         
    }
    
+   public function actionGetUserinfo(){
+       //验证用户
+       $user=yii::$app->user->identity;
+       return CommonUtil::success($user);
+   }
+   
    public function actionAddCart(){
        //验证用户
        $user=yii::$app->user->identity;

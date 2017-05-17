@@ -310,7 +310,7 @@ class GoodsController extends ActiveController
            }
        }
        $goodsPhoto=GoodsPhoto::findOne(['goodsid'=>$model->goodsid]);
-       $oilRec=OilRec::findOne(['orderid'=>$id]);
+       $oilRec=OilRec::findAll(['orderid'=>$id]);
        $num=OilRec::find()->andWhere(['orderid'=>$id])->count('num');
        $leftNum=$model->number-$num;
        return $this->renderAjax('order-detail',['model'=>$model,

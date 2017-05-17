@@ -391,5 +391,15 @@
 		});
 	});
 	
+	mui(document).on('tap','#submit-oil',function(){
+		var leftNum=$(this).data('left');
+		if(leftNum>orderData.number){
+			mui.alert('使用量不能大于剩余量!')
+			return false;
+		}
+		
+	});
+	
+	
 	</script>
 </html>
