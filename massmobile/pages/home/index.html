@@ -709,6 +709,15 @@
 					}
 				})
 			})
+			mui(document).on('tap', '.more-news', function() {
+				var url = $(this).data('url');
+				mui.openWindow({
+					url: '../../load-url.html',
+					extras: {
+						url: url
+					}
+				})
+			})
 			mui(document).on('tap', '.goods-cate', function() {
 				var cateid = $(this).data('cateid');
 				console.log(cateid);

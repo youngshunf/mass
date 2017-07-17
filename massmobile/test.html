@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+   
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/jquery-2.1.0.js" ></script>
+   <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+   <script type="text/javascript" src="js/lodash.min.js" ></script>
+   <style>
+   .dropdown-menu{
+   	width: 100%;
+   	background: #F7F7F7;
+   	border-radius: 0;
+   	border:none;
+   	margin:0;
+   }
+   .btn{
+   	border-radius: 0;
+   }
+   .btn-group{
+   	width: 100%;
+   }
+   
+   </style>
+</head>
+<body>
+<div class="panel-white">
+
+<div class="btn-group">
+<!--<button type="button" class="btn  btn-block  dropdown-toggle" data-toggle="dropdown">
+全部分类 <span class="caret"></span>-->
+</button>
+<div class="form-group dropdown-toggle " data-toggle="dropdown">
+	<label class="control-label">大区</label>
+	<input class="form-control" type="text" placeholder="请输入大区名搜索" id="search"/>
+</div>
+<ul class="dropdown-menu" role="menu" id="district-list">
+<li><a href="#">全部分类</a></li>
+<li><a href="#">调查</a></li>
+<li><a href="#">评论</a></li>
+<li><a href="#">体验</a></li>
+<li><a href="#">招募</a></li>
+
+</ul>
+</div>
+<!--<div class="btn-group">
+<button type="button" class="btn  btn-block dropdown-toggle" data-toggle="dropdown">
+智能排序 <span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu">
+<li class="active"><a href="#">智能排序</a></li>
+<li><a href="#">酬劳最高</a></li>
+<li><a href="#">离我最近</a></li>
+<li><a href="#">最新上线</a></li>
+</ul>
+</div>-->
+</div>
+</body>
+<script>
+    var districtList=[
+     {code:'1001',name:'东北大区'},
+     {code:'1002',name:'西北大区'},
+     {code:'1003',name:'东南大区'}
+    ];
+	$('#search').on('input',function(){
+		var value=$(this).val();
+		console.log(value);
+		var list=_.filter(districtList,function(item){
+			return item.name.indexOf(value)>-1;
+		})
+		console.log(list);
+		var html="";
+		if(list.length<1){
+			html='<li><a href="#">无搜索结果</a></li>';
+			
+		}else{
+			for(var i in list){
+				html +='<li data-code="'+list[i].code+'" data-name="'+list[i].name+'"><a href="#">'+list[i].name+'</a></li>';
+			}
+		}
+		$('#district-list').html(html);
+	})
+	$(document).on('click','#district-list li',function(){
+		var code=$(this).data('code');
+		var name=$(this).data('name');
+		console.log(code,name);
+		$('#search').val(name);
+		$('.btn-group').removeClass('open');
+	})
+</script>
+
+</html>

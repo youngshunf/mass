@@ -35,12 +35,14 @@ $this->title = $model->title;
 </div>
   
  <div class="news-info ">
-  <p> <span class="glyphicon glyphicon-time" ></span><?= CommonUtil::fomatDate($model->created_at)?>
-    <span class="glyphicon glyphicon-eye-open pull-right" >  <?= $model->count_view?> </span></p>
+  <p> <?= CommonUtil::fomatDate($model->created_at)?> <a href="http://51guanggao.cc/" >大众广告</a></p>
+  <img alt="" src="/img/top.png" class="img-responsive" style="padding:10px">
+  <p> 大众广告是免费发布招聘求职、房产、新车、二手车、公益（爱心众筹、留言祝福、寻人寻物）、大众加油、图片新闻、购物（吃喝玩乐、衣食住行）代送代取、教育培训、婚恋交友、服务上门等各类信息的平台。</p>
 </div>
    
     <?= $model->content?>
     
+    <p> 阅读  <?= $model->count_view?> </span></p>
     <ul class="mui-table-view">
       <li class="mui-table-view-cell mui-media " >
       精彩评论

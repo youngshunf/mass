@@ -168,7 +168,7 @@
 			}
 			.modal-container{
 				position: absolute;
-			    top: 50%;
+			    top: 30%;
 			    height: 100%;
 			    width: 100%;
 			}
@@ -188,7 +188,7 @@
 	<body>
 	<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">商品详情</h1>
+			<h1 class="mui-title" id="headerTitle">详情描述</h1>
 			<button  class="mui-btn  mui-btn-link mui-pull-right" id="goods-love"><span class="iconfont icon-shoucang" ></span></button>
 			
 		</header>
@@ -277,7 +277,7 @@
 		
 		<div id="buy-modal" class="mui-modal">
 				<div class="modal-container">
-				<div class="mui-content" style="width:100%;height: 100%;">
+				<div class="mui-content" >
 					<p style="color: #fff;">X<a class="mui-icon mui-icon-close mui-pull-right" href="#buy-modal" style="padding: 5px;"></a> </p>
 					<div class="modal-goods">
 						<ul class="mui-table-view">
@@ -298,10 +298,11 @@
 					</div>
 					<div class="mui-content-padded">
 						<label>购买数量:</label>
-						<div class="mui-numbox" data-numbox-step='1' data-numbox-min='1' data-numbox-max='100000'>
-						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-						<input class="mui-input-numbox" type="number" value="1" id="buy-number"/>
-						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						<input class="" type="number" value="1" id="buy-number"/>
+					</div>
+					<div class="">
+						<label>留言:</label>
+						<textarea  placeholder="给卖家留言" rows="3" id="remark"></textarea>
 					</div>
 					</div>
 					<div class="bottom-button">
@@ -348,25 +349,30 @@
 	var goodsData={};
 	var userInfo;
 	var swiper;
+	var goodsid;
 	mui.init();
 	mui.previewImage();
 	mui.plusReady(function(){
+		init();
+	});
+	
+	function init(){
 		var self=plus.webview.currentWebview();
 		var id=self.goodsid;
+		goodsid=id;
 		if(!id){
 			id=app.getUrlParam('id');
 		}
 		userInfo=app.getUserInfo();
 		if(userInfo.score<=0){
-			mui.alert('您目前积分不足，不能查看信息，可以通过分享，收藏，签到，加入购物车等方式赚取积分!');
+			mui.alert('您目前积分不足，不能查看信息，可以通过分享，签到等方式赚取积分!');
 			mui.back();
 		}else{
 			getGoodsDetail(id);
 			getGoodsData(id);
 			app.getLocInfo();
 		}
-		
-	});
+	}
 		
 	function getGoodsDetail(id){
 		console.log('goodsid:'+id);
@@ -407,7 +413,7 @@
 				locInfo:app.getLocInfo()
 			};
 			mui.ajax({
-				url:app.getAuthUrl(config.getGoodsDataUrl),
+				url:app.getAuthUrl(config.goodsDataUrl),
 				type:"post",
 				data:{data:data},
 				success:function(rs){
@@ -417,6 +423,7 @@
 					}
 					if(rs.result=='success'){
 						goodsData=rs.data;
+						$('#headerTitle').html(goodsData.goods.name);
 						renderGoodsInfo();
 					}
 					
@@ -432,6 +439,9 @@
 		var left=goodsData.goods.stock-goodsData.goods.count_sales;
 			if(goodsData.goods.type==0 &&left<=0){
 				 $('#sellout-btn').removeClass('hide');
+			}
+			if(goodsData.goods.status==2){
+				return false;
 			}
 		 if(goodsData.goods.type==0 &&left>0){
 			console.log('goodsData.goods.user_guid:'+goodsData.goods.user_guid);
@@ -462,7 +472,7 @@
 		}
 	}
 	
-	mui(document.body).on('tap','#goods-love',function(){
+	mui(document).on('tap','#goods-love',function(){
 		var data={
 			id:goodsData.goods.id
 		};
@@ -557,6 +567,8 @@
 		}
 		isSubmit=true;
 		var number=$('#buy-number').val();
+		var remark=$('#remark').val();
+		console.log(remark);
 		var left=goodsData.goods.stock-goodsData.goods.count_sales;
 		if(number<=0){
 			mui.alert('购买数量不能小于0');
@@ -568,7 +580,8 @@
 		}
 		var data={
 			id:goodsData.goods.id,
-			number:number
+			number:number,
+			remark:remark
 		};
 		mui.ajax({
 			type:"post",
@@ -660,6 +673,52 @@
 			}
 		})
 	});
+	
+	var isCommentSubmit=false;
+	mui(document).on('tap','#submit-comment',function(){
+		   if(isCommentSubmit){
+		   	return;
+		   }
+		    isCommentSubmit=true;
+			var comment=$("#comment").val();
+			if(!comment){
+				alert('请填写评论内容');
+				return;
+			}
+			
+			var data={
+			 content:comment,
+			 goodsid:goodsid
+			};
+			
+			plus.nativeUI.showWaiting('正在提交,请稍候...');
+			$.ajax({
+				type:"post",
+				url:app.getAuthUrl(config.submitGoodsCommentUrl),
+				data:{
+					data:data
+				},
+				dataType:'json',
+				success:function(rs){
+					if(typeof rs =='string'){
+						rs=JSON.parse(rs);
+					}
+					plus.nativeUI.closeWaiting();
+					if(rs.result=='success'){
+						mui.toast('评论提交成功!');
+						init();
+					}else{
+						console.log(JSON.stringify(rs));
+					   mui.toast('提交失败,请稍后重试..');
+					}
+				},
+				error:function(e){
+					plus.nativeUI.closeWaiting();
+					console.log(e.status);
+					mui.toast('提交失败,请稍后重试..');
+				}
+			});
+		});
 
 	
 	

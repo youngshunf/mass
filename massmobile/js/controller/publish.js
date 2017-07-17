@@ -54,19 +54,67 @@ var pubApp = angular.module('eoil', [])
 					$scope.$apply(function() {
 						$scope.templateData = rs.data;
 						$scope.formData=rs.data.templateData;
+						$scope.currentCate=rs.data.cate ||{};
 						$scope.formData.action=$scope.action;
 						$scope.formData.imgs=[];
-						$scope.formData.price=rs.data.templateData.price;
+						$scope.formData.price=parseFloat(rs.data.templateData.price);
 						$scope.formData.photos=rs.data.photos;
 						_.each($scope.formData.photos,function(item){
 							item.url=photoUrl+item.path+'thumb/'+item.photo;
 						})
-						$scope.formData.cate=rs.data.cate;
+//						$scope.formData.cate=rs.data.cate;
+						$scope.formData.cate={
+							cateStr:rs.data.cate.text,
+							selected:[rs.data.cate]
+						}
+						getCate(rs.data.cate.value);
 					})
 				}
 			},
 			error:function(e){
 				console.log(e);
+			}
+		});
+	}
+	
+	function getGoods(id){
+		var data={
+			id:id
+		};
+		$.ajax({
+			type: "post",
+			url: app.getAuthUrl(config.getGoodsDataUrl),
+			data:{
+				data:data
+			},
+			success: function(rs) {
+				console.log(rs);
+				if(typeof rs == 'string') {
+					rs = JSON.parse(rs);
+				}
+				if(rs.result == 'success') {
+					$scope.$apply(function() {
+						$scope.goodsData = rs.data;
+						$scope.formData=rs.data.goodsData;
+						$scope.formData.cate={
+							cateStr:rs.data.cate.text,
+							selected:[rs.data.cate]
+						}
+						$scope.formData.action=$scope.action;
+						$scope.formData.imgs=[];
+						$scope.currentCate=rs.data.cate;
+						$scope.formData.price=parseFloat(rs.data.goodsData.price);
+						$scope.formData.photos=rs.data.photos;
+						_.each($scope.formData.photos,function(item){
+							item.url=photoUrl+item.path+'thumb/'+item.photo;
+						})
+//						$scope.formData.cate=rs.data.cate;
+						getCate(rs.data.cate.value);
+					})
+				}
+			},
+			error:function(e){
+				console.log(e.status);
 			}
 		});
 	}
@@ -123,28 +171,56 @@ var pubApp = angular.module('eoil', [])
     }
 	mui.plusReady(function() {
 		var self=plus.webview.currentWebview();
-		var action=self.action;
+		$scope.action=self.action;
 		$scope.cateid=self.cateid;
 		$scope.title=self.cateName;
 		var userInfo=app.getUserInfo();
 		if(userInfo.score<=0){
-			mui.alert('您目前积分不足，不能发布信息，可以通过分享，收藏，签到，加入购物车等方式赚取积分!');
+			mui.alert('您目前积分不足，不能发布信息，可以通过分享，签到等方式赚取积分!');
 			mui.back();
 		}else{
 			init();
 		}
 		
-		console.log(action);
-		$scope.$apply(function(){
-			$scope.action=action;
-		})
-		if(action=='template'){
-			var id=self.templateid;
-			getTemplate(id);
-		}
+		console.log($scope.action);
+//		$scope.$apply(function(){
+//			$scope.action=action;
+//		})
+		
 		$scope.getLoc();
 	})
-
+    var getCate=function(cateid){
+    		$.ajax({
+			type: "post",
+			url: config.getCateUrl,
+			dataType: 'json',
+			data:{
+				cateid:cateid
+			},
+			success: function(rs) {
+				console.log(JSON.stringify(rs));
+				if(typeof rs == 'string') {
+					rs = JSON.parse(rs);
+				}
+				if(rs.result == 'success') {
+					$scope.$apply(function() {
+						$scope.cate = rs.data.cateArr;
+						$scope.formData.currentCate=rs.data.currentCate ||{};
+						$scope.title=$scope.formData.currentCate.name;
+						$scope.currentCate = rs.data.currentCate || {};
+						if(angular.isString($scope.currentCate.template_fields) ){
+							$scope.currentCate.template_fields=JSON.parse($scope.currentCate.template_fields);
+						}
+						//initCateData($scope.cate);
+						console.log(JSON.stringify($scope.cate));
+					})
+				}
+			},
+			error: function(e) {
+				console.log(e.status);
+			}
+		});
+    }
     
 	var init = function() {
 		$.ajax({
@@ -163,36 +239,17 @@ var pubApp = angular.module('eoil', [])
 				}
 			}
 		});
-
-		$.ajax({
-			type: "post",
-			url: config.getCateUrl,
-			dataType: 'json',
-			data:{
-				cateid:$scope.cateid
-			},
-			success: function(rs) {
-				console.log(JSON.stringify(rs));
-				if(typeof rs == 'string') {
-					rs = JSON.parse(rs);
-				}
-				if(rs.result == 'success') {
-					$scope.$apply(function() {
-						$scope.cate = rs.data.cateArr;
-						$scope.formData.currentCate=rs.data.currentCate;
-						$scope.currentCate = rs.data.currentCate;
-						if(angular.isString($scope.currentCate.template_fields) ){
-							$scope.currentCate.template_fields=JSON.parse($scope.currentCate.template_fields);
-						}
-						//initCateData($scope.cate);
-						console.log(JSON.stringify($scope.cate));
-					})
-				}
-			},
-			error: function(e) {
-				console.log(e.status);
-			}
-		});
+		var self=plus.webview.currentWebview();
+		if($scope.action=='template'){
+			var id=self.templateid;
+			getTemplate(id);
+		}else if($scope.action=='edit'){
+			var id=self.goodsid;
+			getGoods(id);
+		}else{
+			getCate($scope.cateid);
+		}
+		
 
 	}
 	

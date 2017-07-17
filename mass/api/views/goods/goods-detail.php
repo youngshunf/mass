@@ -1,6 +1,7 @@
 <?php
 
 use common\models\CommonUtil;
+use common\models\User;
 ?>	
  
      <div class="swiper-container">
@@ -88,7 +89,49 @@ use common\models\CommonUtil;
     				</a>
     			</li>
     			 <li class="mui-table-view-cell " ng-click="payOrder(item)">
-    				<h5>商品详情</h5>
+    				<h5>详情描述</h5>
     				<?= $model->desc?>
     			</li>
     </ul>
+    
+    <?php if($model->type==1){?>
+    <div style="padding:8px" >
+   <div class="form-group">
+   <label class="label-control">评论</label>
+   <textarea class="form-control" name="content" id="comment" rows="5" placeholder="留下你的精彩评论吧" data-goodsid="<?= $model->id ?>"></textarea>
+   <p class="center"><button type="submit" class="mui-btn mui-btn-danger" id="submit-comment">提交</button></p>
+   </div>
+   </div>
+   <?php }?>
+   
+     <ul class="mui-table-view" style="padding-bottom:150px">
+      <li class="mui-table-view-cell mui-media " >
+      评论
+      </li>
+      <?php foreach ($comment as $v){
+              ?>
+    <li class="mui-table-view-cell mui-media user" >
+       <?php 
+       if(!empty($v->user_guid)){
+           $user=User::findOne(['user_guid'=>$v->user_guid]);
+       if(!empty($user->photo)){?>
+				<img class="mui-media-object mui-pull-left img-responsive img-circle" class="img-responsive" src="<?= yii::$app->params['photoUrl'].$user->path.'thumb/'.$user->photo  ?>">
+		<?php }elseif (!empty($user->img_path)){?>
+		<img class="mui-media-object mui-pull-left img-responsive img-circle"  src="<?= $user->img_path?>">
+		<?php } else{?>
+			<img class="mui-media-object mui-pull-left img-responsive img-circle"  src="<?= yii::$app->params['uploadUrl']?>/avatar/virtual/<?= rand(1,20)?>.png">
+		<?php } }?>
+				<div class="mui-media-body">
+					<p class="" ><?= !empty($user->name)?@$user->name:@$user->nick?></p>
+					<div class="content">
+					<p class="" ><?= @$v->content?></p>
+					
+				     <span class="sub-txt mui-pull-right" >
+                       <?= CommonUtil::fomatTime($v->created_at)?>
+                     </span>
+					</div>
+				</div>
+	</li>
+	<?php }?>
+	
+	</ul>

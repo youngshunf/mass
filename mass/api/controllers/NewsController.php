@@ -64,11 +64,30 @@ class NewsController extends Controller
                 'pagesize'=>10
             ]
         ]);
+
+        
         $this->layout="@api/views/layouts/news_layout.php";
         return $this->render('index', [
              'model'=>$model,
             'dataProvider' => $dataProvider,
             'cate'=>$cate
+        ]);
+    }
+    
+    public function actionAll()
+    {
+       
+        $model=News::find()->andWhere(['is_recommend'=>1])->orderBy('created_at desc')->limit(8)->all();
+        $dataProvider = new ActiveDataProvider([
+            'query'=>News::find()->orderBy('created_at desc'),
+            'pagination'=>[
+                'pagesize'=>20
+            ]
+        ]);
+        $this->layout="@api/views/layouts/news_layout.php";
+        return $this->render('index', [
+            'model'=>$model,
+            'dataProvider' => $dataProvider,
         ]);
     }
     

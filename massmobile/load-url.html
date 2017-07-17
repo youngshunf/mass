@@ -30,7 +30,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title"></h1>
-		 
+		 	<button style="line-height: 30px;"   class="mui-btn  mui-btn-link mui-pull-right mui-icon mui-icon-redo" id="share"></button>
 		</header>
 		
 		<div class="mui-content">
@@ -42,12 +42,16 @@
 		<script type="text/javascript" src="js/config.js" ></script>
 		<script type="text/javascript" src="js/app.js" ></script>
 		<script type="text/javascript" src="js/zepto.min.js" ></script>
+		<script type="text/javascript" src="js/shareUrl.js" ></script>
 		<script>
 			var ws=null,embed=null;
+			var shareUrl='';
+			var shareTitle='';
 			mui.init();
 			mui.plusReady(function(){
 				var self=plus.webview.currentWebview();
 				var url=app.getAuthUrl(self.url);
+				shareUrl=url;
 				ws=plus.webview.currentWebview();
 				embed=plus.webview.create(url,"embed",{top:"50px",bottom:"0px"});
 				ws.append(embed);
@@ -57,7 +61,8 @@
 			function urlLoad(){
 				$('.mui-progressbar').hide();
 				$('.mui-title').html(embed.getTitle());
-			
+				shareUrl=embed.getURL();
+				shareTitle=embed.getTitle();
 			}
 		
 			

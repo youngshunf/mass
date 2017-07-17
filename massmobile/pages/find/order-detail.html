@@ -13,10 +13,12 @@
 		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
 		<link rel="stylesheet" href="../../css/swiper.min.css" />
 		<link rel="stylesheet" href="../../css/iconfont.css" />
+		<link rel="stylesheet" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" href="../../css/mui.poppicker.css" />
 		<style>
 			.modal-container{
 				position: absolute;
-			    top: 50%;
+			    top: 40%;
 			    height: 100%;
 			    width: 100%;
 			}
@@ -35,6 +37,9 @@
 			.mui-icon{
 				font-size: 13px;
 			}
+			.mui-content{
+				padding-bottom: 50px;
+			}
 		</style>
 
 	</head>
@@ -44,7 +49,13 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">订单详情</h1>
 		</header>
-		<div class="mui-content" id="order-detail">
+		<div class="mui-content" id="order-detail" style="padding-bottom:150px;margin-bottom: 150px;">
+			<!--<ul class="mui-table-view">
+			 <li class="mui-table-view-cell " >
+				<p ><span class="mui-icon mui-icon-plus red"></span> <a href="#address-modal">新增收货地址</a></p>
+				
+			</li>
+			</ul>-->
 			<!--<ul class="mui-table-view">
 			 <li class="mui-table-view-cell " ng-click="payOrder(item)">
 				<p >订单号:88888 <span class="red mui-pull-right">[供货保证金]</span></p>
@@ -103,7 +114,27 @@
 			
 		</div>
 		
-		
+		<div id="address-modal" class="mui-modal">
+				<div class="modal-container">
+				<div class="mui-content" style="padding-bottom: 20px;">
+					<p style="color: #fff;">X<a class="mui-icon mui-icon-close mui-pull-right" href="#address-modal" style="padding: 5px;"></a> </p>
+					
+					<div class="mui-content-padded" >
+						<label>收货人:</label>
+						<input class="" type="text" value="" id="name" />
+						<label>联系电话:</label>
+						<input class="" type="number" value="" id="phone" />
+						<label>所在地区:</label>
+						<input class="" type="text" value="" id="district"  />
+						<textarea placeholder="请填写详细地址" id="address" rows="2"></textarea>
+					</div>
+					
+					</div>
+					<div class="bottom-button">
+						<button class="mui-btn-mini mui-btn-block mui-btn-danger" id="address-confirm">确定</button>
+					</div>
+				</div>
+				</div>
 		
 		
 		
@@ -116,19 +147,24 @@
 	<script type="text/javascript" src="../../js/jquery-1.8.3.min.js" ></script>
     <script type="text/javascript" src="../../js/pay.js" ></script>
     <script type="text/javascript" src="../../js/jquery.downCount.js" ></script>
+    <script type="text/javascript" src="../../js/mui.picker.js" ></script>
+    <script type="text/javascript" src="../../js/mui.poppicker.js" ></script>
+    <script type="text/javascript" src="../../js/city.data-3.js" ></script>
 	<script>
 	var orderData={};
 	var userInfo;
 	mui.init();
 	mui.plusReady(function(){
+		init();
+	});
+	function init(){
 		var self=plus.webview.currentWebview();
 		var id=self.orderid;
 		userInfo=app.getUserInfo();
+		getPaymentChannels();
 		getOrderData(id);
 		getOrderDetail(id);
-		getPaymentChannels();
-		
-	});
+	}
 	function getOrderDetail(id){
 		console.log('ordersid:'+id);
 			var data={
@@ -393,13 +429,145 @@
 	
 	mui(document).on('tap','#submit-oil',function(){
 		var leftNum=$(this).data('left');
-		if(leftNum>orderData.number){
+		var num=$('#oil-num').val();
+		if(leftNum<num){
 			mui.alert('使用量不能大于剩余量!')
 			return false;
 		}
-		
+		var data={
+			num:num,
+			orderid:orderData.id
+		}
+		mui.ajax({
+			type:"post",
+			url:app.getAuthUrl(config.submitOilUrl),
+			data:{
+				data:data
+			},
+			success:function(rs){
+				console.log(rs);
+				if(typeof rs =='string'){
+					rs=JSON.parse(rs);
+				}
+				if(rs.result=='success'){
+					mui.alert('消费记录添加成功!');
+					init();
+				}else{
+					mui.toast('操作失败');
+				}
+			},
+			error:function(e){
+				console.log(e.status);
+				mui.toast('操作失败:'+e.status);
+			}
+		})
 	});
 	
+	mui(document).on('tap','#comfirm-oil',function(){
+		var id=$(this).data('id');
+		var num=$('#oil-num').val();
+		
+		var data={
+			id:id
+		}
+		mui.ajax({
+			type:"post",
+			url:app.getAuthUrl(config.confirmOilUrl),
+			data:{
+				data:data
+			},
+			success:function(rs){
+				console.log(rs);
+				if(typeof rs =='string'){
+					rs=JSON.parse(rs);
+				}
+				if(rs.result=='success'){
+					mui.alert('确认成功!');
+					init();
+				}else{
+					mui.toast('操作失败');
+				}
+			},
+			error:function(e){
+				console.log(e.status);
+				mui.toast('操作失败:'+e.status);
+			}
+		})
+	});
 	
+	var _getParam = function(obj, param) {
+			return obj[param] || '';
+		};
+	var province,city,district;	
+	var cityPicker3 = new mui.PopPicker({
+				layer: 3
+			});
+			cityPicker3.setData(cityData3);
+			var showCityPickerButton = document.getElementById('district');
+			var cityResult3 = document.getElementById('district');
+			showCityPickerButton.addEventListener('tap', function(event) {
+				cityPicker3.show(function(items) {
+					cityResult3.value = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+					province=_getParam(items[0],'text');
+					city=_getParam(items[1],'text');
+					district=_getParam(items[2],'text');
+				});
+			}, false);
+		$('#address-confirm').click(function(){
+			var name=$('#name').val();
+			if(!name){
+				mui.alert('请填写姓名');
+				return ;
+			}
+			var phone=$('#phone').val();
+			if(!phone){
+				mui.alert('请填写电话');
+				return ;
+			}
+			
+			if(!district){
+				mui.alert('请填写所在地区');
+				return ;
+			}
+			var address=$('#address').val();
+			if(!address){
+				mui.alert('请填写详细地址');
+				return ;
+			};
+			var self=plus.webview.currentWebview();
+		  var id=self.orderid;
+			var data={
+				id:id,
+				name:name,
+				phone:phone,
+				province:province,
+				city:city,
+				district:district,
+				address:address
+			}
+			mui.ajax({
+			type:"post",
+			url:app.getAuthUrl(config.addAddressUrl),
+			data:{
+				data:data
+			},
+			success:function(rs){
+				console.log(rs);
+				if(typeof rs =='string'){
+					rs=JSON.parse(rs);
+				}
+				if(rs.result=='success'){
+					mui.alert('新增地址成功!');
+					init();
+				}else{
+					mui.toast('新增地址失败');
+				}
+			},
+			error:function(e){
+				console.log(e.status);
+				mui.toast('新增地址失败:'+e.status);
+			}
+			})
+		})
 	</script>
 </html>

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-php /www/eoil/yii day-check/update-income >> /www/eoil/daylog.txt
+php /www/mass/yii day-check/update-income >> /www/mass/daylog.txt

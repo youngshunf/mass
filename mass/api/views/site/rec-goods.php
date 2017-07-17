@@ -117,7 +117,7 @@ use common\models\GoodsPhoto;
 							<img class="mui-media-object mui-pull-left" src="<?= yii::$app->params['photoUrl'].$photo->path.'thumb/'.$photo->photo?>">
 							<div class="mui-media-body">
 								<p><?= $v->name?></p>
-								<p class='mui-ellipsis sub-txt'><?= $v->desc?></p>
+								<p class='mui-ellipsis sub-txt'><?= CommonUtil::cutHtml($v->desc,20)?></p>
 							</div>
 						</a>
 						</li>

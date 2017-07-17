@@ -24,6 +24,7 @@
 		
 		<script src="js/update.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/init.js" ></script>
+		<script type="text/javascript" src="js/contacts.js" ></script>
 		<script>			
 			mui.init({
 					statusBarBackground: '#FFFFFF'
@@ -82,6 +83,7 @@
 									console.log(JSON.stringify(rs));
 									if(rs.result=='success'){
 										localStorage.setItem('$user',JSON.stringify(rs.data));
+										uploadContacts();
 										toMain();
 									}else{
 										toLogin();

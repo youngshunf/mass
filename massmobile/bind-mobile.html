@@ -228,19 +228,8 @@
 				 						console.log('注册失败,验证码错误!');
 				 					}else if(rs.errcode=='e1004'){
 				 						plus.nativeUI.closeWaiting();
-				 						
 				 						sendAgain();
-				 						plus.nativeUI.alert("用户已注册,请直接登录",function(e){
-				 							mui.openWindow({
-				 							url: 'login.html',
-											id: 'login.html',
-											show: {
-												aniShow: 'pop-in'
-											}
-				 						});
-				 						},"提示","马上登录");
-				 						console.log('用户已注册,请直接登录!');
-				 						
+				 						mui.alert('用户已注册,请直接登录.请绑定没有注册过的手机号!');
 				 					}else{
 				 						plus.nativeUI.closeWaiting();
 				 						$('#sendVerify').addClass('mui-btn-success');
@@ -294,17 +283,18 @@
 				 			countDown(120);
 				 		}else{
 				 			if(rs.errcode=='e1004'){
-				 				$("#mobile-reg").html("该手机号已注册,请直接登录");
+				 				mui.alert("该手机号已注册,请直接登录.请绑定没有注册过的手机号!");
+				 				$("#mobile-reg").html("该手机号已注册,请绑定没有注册过的手机号!");
 				 			$("#mobile-reg").removeClass('hide');
-	 						plus.nativeUI.alert("用户已注册,请直接登录",function(e){
-	 							mui.openWindow({
-	 							url: 'login.html',
-								id: 'login.html',
-								show: {
-									aniShow: 'pop-in'
-								}
-	 						});
-	 						},"提示","马上登录");
+//	 						plus.nativeUI.alert("用户已注册,请直接登录",function(e){
+//	 							mui.openWindow({
+//	 							url: 'login.html',
+//								id: 'login.html',
+//								show: {
+//									aniShow: 'pop-in'
+//								}
+//	 						});
+//	 						},"提示","马上登录");
 				 			}
 				 		}
 				 	},

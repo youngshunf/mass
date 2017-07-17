@@ -1,4 +1,4 @@
-# yii console command
+# yii console command
 /yii
 
 # phpstorm project files
@@ -32,3 +32,4 @@ phpunit.phar
 unpackage
 runtime
 web/assets
+

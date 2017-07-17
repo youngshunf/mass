@@ -59,9 +59,11 @@ function getBestGoods(){
 	success:function(rs){
 		$('#best-goods').html(rs);
 		bswiper = new Swiper('#best-goods', {
+			pagination: '.swiper-pagination',
 	        paginationClickable: true,
 	        spaceBetween: 0,
-	        loop:true,
+	        centeredSlides: true,
+	        autoplay: 2500,
 	        autoplayDisableOnInteraction: false
 	    });
 	},

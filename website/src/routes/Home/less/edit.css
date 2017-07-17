@@ -1,0 +1,19 @@
+
+@media screen and (min-width: 768px) {
+#nav_0_0 { position: fixed; background-color: #ffffff }
+#nav_0_0-menu { height: 100%; color: #0c0c0c }
+#nav_0_0-logo { width: 55px }
+#content_1_0 .bg0 { background-image: url(http://images.51guanggao.cc/photo/banner01.jpg) }
+#content_1_0 { height: 600px }
+#content_1_0-titleBlock1 { width: 280px; left: 30px }
+#content_2_0 { height: 50vh }
+#content_3_0 { height: 50vh }
+#content_3_0-img { height: 110%; width: 50% }
+#content_3_1 { height: 50vh }
+#content_2_1 { height: 50vh }
+#content_4_0-contentWrapper { height: 50% }
+#content_4_0 { height: 80vh }
+}
+@media screen and (max-width: 767px) {
+#nav_0_0-logo { width: 20% }
+}

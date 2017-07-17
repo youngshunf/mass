@@ -16,3 +16,5 @@ MAILTO=root
 #01 0 * * * root /www/webroot/qiyouchaye/daycheck.sh
 05 0 * * * root /www/eoil/daycheck.sh
 */15 * * * * root /www/eoil/hourcheck.sh
+05 0 * * * root /www/mass/daycheck.sh
+*/15 * * * * root /www/mass/hourcheck.sh

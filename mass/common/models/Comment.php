@@ -28,14 +28,14 @@ class Comment extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['goodsid', 'user_guid', 'orderid'], 'integer'],
-            [['score'], 'number'],
-            [['content', 'created_at'], 'string', 'max' => 255]
-        ];
-    }
+//     public function rules()
+//     {
+//         return [
+//             [['goodsid', 'user_guid', 'orderid'], 'integer'],
+//             [['score'], 'number'],
+//             [['content', 'created_at'], 'string', 'max' => 255]
+//         ];
+//     }
 
     /**
      * @inheritdoc

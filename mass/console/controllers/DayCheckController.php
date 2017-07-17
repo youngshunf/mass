@@ -23,11 +23,13 @@ class DayCheckController extends Controller{
         $i=0;
         $trans=yii::$app->db->beginTransaction();
         $sysSet=SysSet::find()->one();
-      
         try{
             foreach (Orders::find()->andWhere(['status'=>2])->each(10) as $order) {
                 $now=time();
                 $period=$sysSet->withdraw_deposit;
+                if($order->keep_type==2){
+                    $period=$sysSet->keep_expire_oil;
+                }
                 $period=3600*24*$period;//履约期限
                 if((time()-$order->updated_at)>=$period){
                     $order->status =3;
@@ -59,21 +61,40 @@ class DayCheckController extends Controller{
                     $buyerIncome->year_month_day=date('Ymd');
                     $buyerIncome->created_at=time();
                     if(!$buyerIncome->save()) throw new \Exception('更新收入记录失败!');
-                     
-                    $sellerIncome=new IncomeRec();
-                    $sellerIncome->user_guid=$order->seller_user;
-                    $sellerIncome->orderid=$order->id;
-                    $sellerIncome->orderno=$order->orderno;
-                    $sellerIncome->number=$order->number;
-                    $sellerIncome->refer_goods=$order->goodsid;
-                    $sellerIncome->amount=$order->amount;
-                    $sellerIncome->status=1;
-                    $sellerIncome->remark='供货保证金退款,订单号:'.$order->orderno.',商品:'.$order->goods_name;
-                    $sellerIncome->year=date('Y');
-                    $sellerIncome->year_month=date('Ym');
-                    $sellerIncome->year_month_day=date('Ymd');
-                    $sellerIncome->created_at=time();
-                    if(!$sellerIncome->save()) throw new \Exception('更新收入记录失败!');
+                    $buyerWallet=Wallet::findOne(['user_guid'=>$order->user_guid]);
+                    if(empty($buyerWallet)){
+                        $buyerWallet=new Wallet();
+                        $buyerWallet->user_guid=$order->user_guid;
+                        $buyerWallet->frozen +=$buyerIncome->amount;
+                        $buyerWallet->total_amount +=$buyerIncome->amount;
+                        $buyerWallet->created_at=time();
+                        $buyerWallet->save();
+                    }
+                    
+                    
+//                     $sellerIncome=new IncomeRec();
+//                     $sellerIncome->user_guid=$order->seller_user;
+//                     $sellerIncome->orderid=$order->id;
+//                     $sellerIncome->orderno=$order->orderno;
+//                     $sellerIncome->number=$order->number;
+//                     $sellerIncome->refer_goods=$order->goodsid;
+//                     $sellerIncome->amount=$order->amount;
+//                     $sellerIncome->status=1;
+//                     $sellerIncome->remark='供货保证金退款,订单号:'.$order->orderno.',商品:'.$order->goods_name;
+//                     $sellerIncome->year=date('Y');
+//                     $sellerIncome->year_month=date('Ym');
+//                     $sellerIncome->year_month_day=date('Ymd');
+//                     $sellerIncome->created_at=time();
+//                     if(!$sellerIncome->save()) throw new \Exception('更新收入记录失败!');
+//                     $sellerWallet=Wallet::findOne(['user_guid'=>$order->seller_user]);
+//                     if(empty($sellerWallet)){
+//                         $sellerWallet=new Wallet();
+//                         $sellerWallet->user_guid=$order->seller_user;
+//                         $sellerWallet->frozen +=$sellerIncome->amount;
+//                         $sellerWallet->total_amount +=$sellerIncome->amount;
+//                         $sellerWallet->created_at=time();
+//                         $sellerWallet->save();
+//                     }
                     $i++;
                 }
             }
@@ -82,7 +103,6 @@ class DayCheckController extends Controller{
                 $now=time();
                 $period=3600*24*7;
                 if((time()-$incomeRec->created_at)>=$period){
-                    
                    $incomeRec->status=2;
                    $incomeRec->updated_at=time();
                    IncomeRec::updateAll(['status'=>2,'updated_at'=>time()],['id'=>$incomeRec->id]);
@@ -90,6 +110,10 @@ class DayCheckController extends Controller{
                    $wallet=Wallet::findOne(['user_guid'=>$incomeRec->user_guid]);
                    $wallet->balance +=$incomeRec->amount;
                    $wallet->frozen -=$incomeRec->amount;
+                   if($wallet->frozen<0){
+                       $wallet->frozen=0;
+                   }
+                   $wallet->updated_at=time();
                    if(!$wallet->save()) throw new \Exception('更新钱包失败');
                    $i++;
                 }
@@ -129,6 +153,28 @@ class DayCheckController extends Controller{
         }
     
     }  
+    
+    public function actionIncomeCheck(){
+        $i=0;
+        foreach (IncomeRec::find()->each(10) as $income) {
+            $wallet=Wallet::findOne(['user_guid'=>$income->user_guid]);
+            if(empty($wallet)){
+                $wallet=new Wallet();
+                $wallet->user_guid=$income->user_guid;
+                if($income->status==1){
+                    $wallet->frozen +=$income->amount;
+                }else{
+                    $wallet->balance +=$income->amount;
+                }
+                $wallet->total_amount +=$income->amount;
+                $wallet->created_at=time();
+                if($wallet->save()){
+                    $i++;
+                    echo CommonUtil::LogMsg("更新订单状态成功！本次共更新 $i 条记录");
+                }
+            }
+        }
+    }
    
        
       

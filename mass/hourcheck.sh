@@ -1,3 +1,3 @@
 #!/bin/sh
 
-php /www/eoil/yii day-check/check-order >> /www/eoil/hourlog.txt
+php /www/mass/yii day-check/check-order >> /www/mass/hourlog.txt

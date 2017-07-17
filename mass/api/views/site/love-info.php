@@ -7,21 +7,27 @@ use common\models\GoodsPhoto;
     <ul class="mui-table-view ">
 		<li class="mui-table-view-cell" >
 		<p>
-		<a href="#" class="sub-txt active goods-cate" data-cateid="<?= $loveCate->id?>"><?=$loveCate->name?></a>
-		<a href="#" class="sub-txt" id="latest-info">最新</a> </p>
+		<a href="#" class="sub-txt" id="latest-info">最新</a> 
+		<?php foreach ($cate as $v){?>
+		<a href="#" class="sub-txt active goods-cate" data-cateid="<?= $v->id?>"><?=$v->name?></a>
+		<?php }?>
+		</p>
 		</li>
 		<?php foreach ($goods as $v){
 		    $photo=GoodsPhoto::findOne(['goodsid'=>$v->id]);
 		    ?>
 		<li class="mui-table-view-cell mui-media goods" data-id="<?= $v->id?>">
 		<a href="javascript:;">
+		   <?php if(!empty($photo)){
+		   ?>
 			<img class="mui-media-object mui-pull-left" src="<?= yii::$app->params['photoUrl'].$photo->path.'thumb/'.$photo->photo?>">
+			<?php }?>
 			<div class="mui-media-body">
 				<p><?= $v->name?></p>
 				<?php if($v->type==0){?>
 				<p><span class="red">￥ <?= $v->price ?></span>  <?= $v->unit?></p>
 				<?php }?>
-				<p class='mui-ellipsis sub-txt'><?= $v->desc?></p>
+				<p class='mui-ellipsis sub-txt'><?= CommonUtil::cutHtml($v->desc,20) ?></p>
 			</div>
 		</a>
 		</li>

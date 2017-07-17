@@ -28,9 +28,14 @@ var config={
 	checkUserAccountUrl:serverBaseUrl+'user/check-account',//更新用户帐户信息
 	submitAppealUrl:serverBaseUrl+'goods/submit-appeal',//提交申诉
 	submitCommentUrl:serverBaseUrl+'goods/submit-comment',//提交评论
+	addAddressUrl:serverBaseUrl+'goods/add-address',//提交地址
+	submitGoodsCommentUrl:serverBaseUrl+'goods/submit-goods-comment',//提交评论
 	updateUserDataUrl:serverBaseUrl+'user/user-data',//用户数据提交
 	getWalletUrl:serverBaseUrl+'user/get-wallet',
 	getMessageStateUrl:serverBaseUrl+'user/get-message-state',//获取消息状态
+	sendMessageUrl:serverBaseUrl+'user/send-message',//
+	getRecordUrl:serverBaseUrl+'user/get-record',//
+	getChatListUrl:serverBaseUrl+'user/get-chatlist',//
 	getNotifyUrl:serverBaseUrl+'user/get-notify',
 	getMsgNumUrl:serverBaseUrl+'user/get-msgnum',
 	updateAlipayUrl:serverBaseUrl+'user/update-alipay',//修改支付宝账号
@@ -60,7 +65,7 @@ var config={
 	getGoodsDetailUrl:serverBaseUrl+'goods/goods-detail',
 	getTemplateListUrl:serverBaseUrl+'goods/template-list',
 	delTemplateUrl:serverBaseUrl+'goods/del-template',
-	getGoodsDataUrl:serverBaseUrl+'goods/goods-data',
+	goodsDataUrl:serverBaseUrl+'goods/goods-data',
 	getGoodsCateUrl:serverBaseUrl+'goods/goods-cate',
 	searchGoodsUrl:serverBaseUrl+'goods/goods-search',
 	getUserGoodsListUrl:serverBaseUrl+'goods/user-goods',
@@ -68,6 +73,7 @@ var config={
 	submitOrderUrl:serverBaseUrl+'goods/submit-order',
 	tempalteSetUrl:serverBaseUrl+'goods/template-set',
 	getTemplateDataUrl:serverBaseUrl+'goods/template-data',
+	getGoodsDataUrl:serverBaseUrl+'goods/get-goods-data',
 	getOrderDetailUrl:serverBaseUrl+'goods/order-detail',
 	getOrderDataUrl:serverBaseUrl+'goods/order-data',
 	getSellerOrderUrl:serverBaseUrl+'goods/seller-order',
@@ -86,6 +92,7 @@ var config={
 	withdrawOrderUrl:serverBaseUrl+'goods/withdraw-order',
 	confirmOrderUrl:serverBaseUrl+'goods/confirm-order',
 	cancelOrderUrl:serverBaseUrl+'goods/cancel-order',
+	delGoodsUrl:serverBaseUrl+'goods/del-goods',
 	uploadLocationUrl:serverBaseUrl+'user/upload-location',
 	getUserInfoUrl:serverBaseUrl+'user/get-userinfo',
 	getUserLocUrl:serverBaseUrl+'user/get-user-location',

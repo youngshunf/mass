@@ -282,6 +282,13 @@
 		document.getElementById('submit').addEventListener('tap',function(){
 			var amount=$("#amount").val();
 			var payPwd=$('#payPwd').val();
+			var userInfo=app.getUserInfo();
+			if(!userInfo.mobile){
+				mui.toast('请先绑定手机号再提现!');
+				mui.openWindow({
+					url:'../../bind-mobile.html'
+				})
+			}
 			if(!amount || amount <=0){
 				mui.alert('请填写提现金额');
 				return;

@@ -104,7 +104,7 @@ class SiteController extends Controller
     
     public function actionGetHomeNews(){
         $news=News::find()->orderBy('created_at desc')->limit(5)->all();
-        $newsCate=NewsCate::find()->andWhere(['type'=>'0'])->orderBy('created_at desc')->limit(4)->all();
+        $newsCate=NewsCate::find()->andWhere(['type'=>'0'])->orderBy('created_at desc')->limit(5)->all();
         return $this->renderAjax('home-news',['news'=>$news,'newsCate'=>$newsCate
         ]);
     }
@@ -116,7 +116,7 @@ class SiteController extends Controller
         return $this->renderAjax('photo-news',['goods'=>$goods,'cates'=>$cates]);
     }
     public function actionGetRecGoods(){
-        $goods=Goods::find()->andWhere(['is_rec'=>1,'type'=>0])->orderBy('created_at desc')->limit(40)->all();
+        $goods=Goods::find()->andWhere(['is_rec'=>1])->orderBy('created_at desc')->limit(40)->all();
         $data=[];
         $count=count($goods);
         if($count>32){
@@ -125,22 +125,22 @@ class SiteController extends Controller
             $data[2]=array_splice($goods, 15,8);
             $data[3]=array_splice($goods, 23,8);
             $data[4]=array_splice($goods, 31,8);
-        }elseif($count>24){
+        }elseif($count>24&&$count<=32){
             $data[0]=array_splice($goods, 0,8);
             $data[1]=array_splice($goods, 7,8);
             $data[2]=array_splice($goods, 15,8);
             $data[3]=array_splice($goods, 23,8);
-        }elseif($count>16){
+        }elseif($count>16&&$count<=24){
             $data[0]=array_splice($goods, 0,8);
             $data[1]=array_splice($goods, 7,8);
             $data[2]=array_splice($goods, 15,8);
-        }elseif($count>8){
+        }elseif($count>8&&$count<=16){
             $data[0]=array_splice($goods, 0,8);
             $data[1]=array_splice($goods, 7,8);
-        }else{
+        }elseif($count<=8){
             $data[0]=array_splice($goods, 0,8);
         }
-        $newGoods=Goods::find()->andWhere(['type'=>1])->orderBy('created_at desc')->limit(5)->all();
+        $newGoods=Goods::find()->andWhere(['type'=>0])->orderBy('created_at desc')->limit(20)->all();
         $recCate=GoodsCate::find()->andWhere(['is_rec'=>'1'])->orderBy('updated_at desc')->limit(4)->all();
         $loveGoods=Goods::find()->orderBy('count_love desc')->limit(6)->all();
         $authUser=User::find()->andWhere(['is_auth'=>1])->orderBy('updated_at desc')->limit(6)->all();
@@ -159,17 +159,17 @@ class SiteController extends Controller
         ]);
     }
     public function actionGetLoveinfo(){
-        $cateid=1;
-        if(isset($_GET['access-token'])){
-            $user=User::findOne(['access_token'=>$_GET['access-token']]);
-            $visitCate=UserVisit::findOne(['user_guid'=>$user->user_guid]);
-            if(!empty($visitCate)){
-                $cateid=$visitCate->id;
-            }
-        }
-        $loveCate=GoodsCate::findOne($cateid);
-        $goods=Goods::find()->andWhere(['cateid'=>$cateid])->orderBy('created_at desc')->limit(10)->all();
-        return $this->renderAjax('love-info',['goods'=>$goods,'loveCate'=>$loveCate]);
+//         $cate=[];
+//         if(isset($_GET['access-token'])){
+//             $user=User::findOne(['access_token'=>$_GET['access-token']]);
+//             $cate=UserVisit::find()->andWhere(['user_guid'=>$user->user_guid])->limit(4)->orderBy('created_at desc')->all();
+//         }else{
+//             $cate=GoodsCate::find()->limit(4)->all();
+//         }
+//         $loveCate=GoodsCate::findOne($cateid);
+        $cate=GoodsCate::find()->limit(4)->all();
+        $goods=Goods::find()->orderBy('created_at desc')->limit(10)->all();
+        return $this->renderAjax('love-info',['goods'=>$goods,'cate'=>$cate]);
     }
     public function actionGetNewGoods(){
         $goods=Goods::find()->orderBy('created_at desc')->limit(6)->all();
@@ -700,7 +700,6 @@ class SiteController extends Controller
                 return CommonUtil::success($user);
             }
         }
-        
         return CommonUtil::error('e1002');
     }
     
@@ -798,10 +797,10 @@ class SiteController extends Controller
      */
     public function actionCheckUpdate(){
        $ua=yii::$app->request->getUserAgent();
-      $wgtUrl= 'http://images.mass.mi2you.com/wgt/H51B98E5D.wgt';
+      $wgtUrl= 'http://images.51guanggao.cc/wgt/H593B44B5.wgt';
        
       $updateInfo=[
-          'newVer'=>'1.0.0',
+          'newVer'=>'1.1.9',
           'wgtUrl'=>$wgtUrl
       ];
       

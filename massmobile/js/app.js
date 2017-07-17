@@ -77,7 +77,6 @@
 			localStorage.setItem('$locInfo',JSON.stringify(locInfo));
 			
 		},function(e){
-			plus.nativeUI.toast("获取位置信息失败："+e.message);
 			console.log("获取位置信息失败："+e.message );
 			return ;
 		},{provider:'baidu'});	

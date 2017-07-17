@@ -3,6 +3,7 @@
 use common\models\CommonUtil;
 use common\models\SysSet;
 use common\models\Appeal;
+use common\models\Address;
 $user=yii::$app->user->identity;
 if($user->user_guid==$model->user_guid){
     $orderType=1;
@@ -10,12 +11,14 @@ if($user->user_guid==$model->user_guid){
     $orderType=2;
 }
 ?>	
- 
-   <ul class="mui-table-view">
+ <div style="margin-bottom:200px;position: relative;
+padding-bottom: 200px">
+   <ul class="mui-table-view" >
 			 <li class="mui-table-view-cell " >
 				<p >订单号:<?= $model->orderno ?> <span class="red mui-pull-right"><?= CommonUtil::getDescByValue('orders', 'type', $model->type) ?> </span></p>
 				<p class="sub-txt">下单时间 : <?= CommonUtil::fomatTime($model->created_at)?> </p>
 				<p class="sub-txt">状态 : <span class="red"><?= CommonUtil::getDescByValue('orders', 'status', $model->status) ?></span></p>
+				<p class="sub-txt">买家留言 : <?= $model->remark ?></p>
 			</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -23,6 +26,24 @@ if($user->user_guid==$model->user_guid){
 				<p ><?= $model->user->name ?> <span class="mui-pull-right"><?= $model->user->mobile ?></span></p>
 				<p class="sub-txt"><span class="mui-icon mui-icon-location"></span><?= $model->user->address ?></p>
 			</li>
+			</ul>
+			
+			<ul class="mui-table-view">
+			 <li class="mui-table-view-cell " >
+				<p >收货地址</p>
+			</li>
+			<?php 
+			 if(!empty($model->address)){?>
+			 <li class="mui-table-view-cell " >
+				<p ><?= $model->address?></p>
+			</li>
+			<?php }?>
+			
+			<?php if($model->status==0){?>
+			 <li class="mui-table-view-cell " >
+			 <p ><span class="mui-icon mui-icon-plus red"></span> <a href="#address-modal">新增收货地址</a></p>
+			 </li>
+			 <?php }?>
 			</ul>
 			
 		    <ul class="mui-table-view">
@@ -33,7 +54,7 @@ if($user->user_guid==$model->user_guid){
 				<img class="mui-media-object mui-pull-left " src="<?= yii::$app->params['photoUrl'].$goodsPhoto->path.'thumb/'.$goodsPhoto->photo?>">
 					<div class="mui-media-body" style="margin-top: 15px;">
 						<p> <?= $model->goods_name ?></p>
-						<p class="sub-txt"><span class="red">￥<?= $model->goods_price ?></span></p>
+						<p class="sub-txt"><span class="red">￥<?= $model->goods->price ?></span></p>
 				</div>
 			</li>
 			 <li class="mui-table-view-cell " >
@@ -54,9 +75,13 @@ if($user->user_guid==$model->user_guid){
     				<?php }?>
     		<?php if( $model->status==2 && (($orderType==1&&$model->is_buyer_confirm==0)||($orderType==2&&$model->is_seller_confirm==0)) ){
     		$sysSet=SysSet::find()->one();
+    		$deadline=$sysSet->withdraw_deposit;
+    		if($model->keep_type==2){
+    		    $deadline=$sysSet->keep_expire_oil;
+    		}
     		    ?>
-    		<li class="mui-table-view-cell down-count " data-time="<?= date("m/d/Y H:i:s",($model->updated_at+($model->updated_at+$sysSet->withdraw_deposit*3600*24-time())))?>">
-				<p class="red">履约期限为:<?= $sysSet->withdraw_deposit?>天. 请在<?= $sysSet->withdraw_deposit?>天内确认履约，否则系统自动确认.</p>
+    		<li class="mui-table-view-cell down-count " data-time="<?= date("m/d/Y H:i:s",($model->updated_at+($model->updated_at+$deadline*3600*24-time())))?>">
+				<p class="red">履约期限为:<?= $deadline?>天. 请在<?= $deadline ?>天内确认履约，否则系统自动确认.</p>
 				<p class="red">履约剩余时间: <span class="J_TimeLeft prev"> <i class="days">00</i> 天 <i class="hours">00</i> 时 <i class="minutes">00</i> 分 <i class="seconds">00</i> 秒</span>
 				</p>
 			</li>
@@ -78,15 +103,17 @@ if($user->user_guid==$model->user_guid){
     				<?php }?>
 			</ul>
 			
-			<?php if($model->status==2 && $model->keep_type==2){?>
+			<?php if($model->status==2){?>
 			<ul class="mui-table-view" >
 			 <li class="mui-table-view-cell " >
-				<p>加油记录</p>
+				<p>消费记录</p>
 			</li>
 			<?php foreach ($oilRec as $v){?>
 			<li class="mui-table-view-cell ">
-				使用量: <?= $v->num ?> 使用时间:<?= CommonUtil::fomatTime($v->created_at)?>   状态:<?= CommonUtil::getDescByValue('oil_rec', 'status', $v->satus)?>
-				<?php if($model->seller_user==$user->user_guid && $model->status==0){?>
+				<p>使用量: <?= $v->num ?> </p>
+				<p>使用时间:<?= CommonUtil::fomatTime($v->created_at)?> </p>
+				<p>  状态:<span class="red"><?= CommonUtil::getDescByValue('oil_rec', 'status', $v->status)?></span> </p>
+				<?php if($orderType==2 && $v->status==0){?>
 				<p class="text-center"><a href="#" class="mui-btn mui-btn-danger" id="comfirm-oil" data-id="<?= $v->id?>">确认使用</a></p>
 				<?php }?>
 			</li>
@@ -123,13 +150,7 @@ if($user->user_guid==$model->user_guid){
 				<a href="#">立即支付</a>
 			</div>
 			</div>
-			<?php }elseif($orderType==2 &&$model->status==1){?>
-			<div class="bottom-button mui-row " >
-			<div class="mui-col-xs-12 buy-btn flex-center text-center" id="pay-order" data-orderid="<?= $model->id?>">
-				<a href="#">立即支付</a>
-			</div>
-			</div>
-			<?php }elseif($model->status==2 && (($orderType==1&&$model->is_buyer_confirm==0)||($orderType==2&&$model->is_seller_confirm==0)) ){?>
+			<?php } elseif($model->status==2 && (($orderType==1&&$model->is_buyer_confirm==0)||($orderType==2&&$model->is_seller_confirm==0)) ){?>
 			<div class="bottom-button mui-row " >
 			<div class="mui-col-xs-12 cart-btn flex-center text-center" id="confirm-order" data-orderid="<?= $model->id?>">
 				<a href="#">确认履约</a>
@@ -141,10 +162,19 @@ if($user->user_guid==$model->user_guid){
 				<a href="#">申请退还保证金</a>
 			</div>
 			</div> -->
-			<?php }elseif($model->status==3){?>
+			<?php }elseif($model->status==3 && $orderType==2){?>
 			<div class="bottom-button mui-row " >
 			<div class="mui-col-xs-12 cart-btn flex-center text-center" id="appeal-order" data-orderid="<?= $model->id?>">
 				<a href="#">申诉</a>
+			</div>
+			</div>
+			<?php }elseif($model->status==3 && $orderType==1){?>
+			<div class="bottom-button mui-row " >
+			<div class="mui-col-xs-6 cart-btn flex-center text-center" id="appeal-order" data-orderid="<?= $model->id?>">
+				<a href="#">申诉</a>
+			</div>
+			<div class="mui-col-xs-6 buy-btn flex-center text-center" id="comment-order" data-orderid="<?= $model->id?>">
+				<a href="#">评价</a>
 			</div>
 			</div>
 			<?php }elseif($orderType==1&&$model->status==4){?>
@@ -154,3 +184,5 @@ if($user->user_guid==$model->user_guid){
 			</div>
 			</div>
 			<?php }?>
+			
+	</div>

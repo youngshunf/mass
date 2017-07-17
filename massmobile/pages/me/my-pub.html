@@ -84,9 +84,51 @@
 				}
 			})
 		})
+	 mui(document).on('tap','.del-goods',function(){
+			var id=$(this).data('id');
+			var data={
+			id:id
+			};
+		plus.nativeUI.confirm('您确定你要删除此条信息吗?',function(e){
+			if(e.index==1){
+			mui.ajax({
+			type:"post",
+			url:app.getAuthUrl(config.delGoodsUrl),
+			data:{
+				data:data
+			},
+			success:function(rs){
+				console.log(rs);
+				if(typeof rs =='string'){
+					rs=JSON.parse(rs);
+				}
+				if(rs.result=='success'){
+					mui.toast('删除成功!');
+					getGoodsList();
+				}else{
+					mui.toast('操作失败');
+				}
+			},
+			error:function(e){
+				console.log(e.status);
+				mui.toast('操作失败:'+e.status);
+			}
+		})
+			}
+		},'提示',['取消','确定']);
+	 })
 	
-	
-	
+	 mui(document).on('tap','.edit-goods',function(){
+			var id=$(this).data('id');
+			console.log(id);
+			mui.openWindow({
+				url:'../pub/publish.html',
+				extras:{
+					action:'edit',
+					goodsid:id
+				}
+			})
+		})
 	
 	
 	</script>

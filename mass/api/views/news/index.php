@@ -10,7 +10,7 @@ use yii\widgets\ListView;
 /* @var $searchModel common\models\SearchNews */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title =$cate->name;
+$this->title ='全部新闻';
 $this->registerJsFile('@web/nivo-slider/jquery.nivo.slider.pack.js');
 $this->registerCssFile('@web/nivo-slider/themes/default/default.css');
 $this->registerCssFile('@web/nivo-slider/nivo-slider.css');

@@ -29,6 +29,9 @@ use common\models\GoodsPhoto;
 use common\models\UserLocation;
 use common\models\UserVisit;
 use common\models\GoodsCate;
+use common\models\Chat;
+use common\models\ChatMsg;
+use yii\base\Object;
 
 /**
  * 用户信息
@@ -728,7 +731,7 @@ class UserController extends ActiveController
         $data=$_POST['data'];
         $amount=$data['amount'];
         $payPwd=$data['payPwd'];
-        $authUser=User::findOne(['user_guid'=>$user->user_guid,'pay_password'=>md5($payPwd)]);
+        $authUser=User::findOne(['user_guid'=>$user->user_guid,'password'=>md5($payPwd)]);
         if(empty($authUser)){
             return CommonUtil::error('e1007');
         }
@@ -797,6 +800,46 @@ class UserController extends ActiveController
     public function actionUpdateShareScore(){
         $user=yii::$app->user->identity;
         CommonUtil::calScore('share', $user->user_guid);
+    }
+    public function actionSendMessage(){
+        $user=yii::$app->user->identity;
+        $data=yii::$app->request->post('data');
+        
+        $chat=new Chat();
+        $chat->from=$user->user_guid;
+        $chat->to=@$data['to'];
+        $chat->content=@$data['content'];
+        $chat->type='text';
+        $chat->created_at=time();
+        if(!$chat->save()){
+            return CommonUtil::error('e1002');
+        }
+        return CommonUtil::success('success');
+    }
+    
+    public function actionGetRecord(){
+        $user=yii::$app->user->identity;
+        $data=yii::$app->request->post('data');
+        $to=$data['to'];
+    
+        $chat= Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->all();
+        $res=[];
+        foreach ($chat as $v){
+            $sender=$v->from;
+            if($v->from==$user->user_guid){
+                $sender='self';
+                $name=$user->nick;
+            
+            }
+            $res[]=[
+                'sender'=>$sender,
+                'name'=>$name,
+                'content'=>$v->content,
+                
+            ];
+        }
+       
+        return CommonUtil::success($res);
     }
 
 

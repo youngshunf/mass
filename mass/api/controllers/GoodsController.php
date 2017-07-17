@@ -35,6 +35,8 @@ use common\models\UserVisit;
 use common\models\OilRec;
 use common\models\GoodsLove;
 use common\models\ShoppingCart;
+use common\models\Address;
+use yii\base\Object;
 
 require_once "../../common/WxpayAPI/lib/WxPay.Api.php";
 require_once "../../common/WxpayAPI/example/WxPay.JsApiPay.php";
@@ -85,7 +87,13 @@ class GoodsController extends ActiveController
        if(is_string($data)){
            $data=json_decode($data,true);
        }
-       $goods=new Goods();
+       if(@$data['action']=='edit'){
+           $goods=Goods::findOne([$data['id']]);
+           $goods->updated_at=time();
+       }else{
+           $goods=new Goods();
+       }
+      
        $goods->user_guid=$user->user_guid;
        $goods->uid=$user->id;
        $goods->name=@$data['name'];
@@ -157,6 +165,9 @@ class GoodsController extends ActiveController
            $goods->template_fields=json_encode($goods->template_fields);
        }
        $goods->created_at=time();
+       if(@$data['action']=='edit'){
+           GoodsPhoto::deleteAll(['goodsid'=>$goods->id]);
+       }
        if($goods->save()){
            foreach ($data['imgs'] as $v){
                $photo=ImageUploader::uploadImageByBase64($v);
@@ -171,7 +182,7 @@ class GoodsController extends ActiveController
                    $goodsPhoto->save();
                }
            }
-           if(@$data['action']=='template'){
+           if(@$data['action']=='template'||@$data['action']=='edit'){
                if(!empty($data['photos'])){
                    foreach ($data['photos'] as $item){
                        $goodsPhoto=new GoodsPhoto();
@@ -244,7 +255,6 @@ class GoodsController extends ActiveController
        $data=$_POST['data'];
        $orderid=$data['orderid'];
        $content=$data['content'];
-       //$score=$data['score'];
        
        $order=Orders::findOne(['id'=>$orderid]);
        if($order->user_guid==$user->user_guid){
@@ -264,19 +274,36 @@ class GoodsController extends ActiveController
        return CommonUtil::error('e1002');
    }
    
+   public function actionSubmitGoodsComment(){
+       $user=yii::$app->user->identity;
+       $data=$_POST['data'];
+       $goodsid=$data['goodsid'];
+       $content=$data['content'];
+        
+       
+       $comment=new Comment();
+       $comment->user_guid=$user->user_guid;
+       $comment->goodsid=$goodsid;
+       $comment->content=$content;
+       $comment->created_at=time();
+       if($comment->save()){
+           return CommonUtil::success('success');
+       }
+       return CommonUtil::error('e1002');
+   }
+   
    public function actionGoodsDetail(){
        $data=$_POST['data'];
        $id=$data['id'];
-// $id=13;
        $model=Goods::findOne($id);
-//        if($model->status==1 ||$model->status==0){
-//            $time=time();
-//            if($model->end_time<=$time){
-//                $model->status=2;
-//                $model->updated_at=time();
-//                $model->save();
-//            }
-//        }
+       if($model->status==1 ||$model->status==0){
+           $time=time();
+           if($model->end_time<=$time){
+               $model->status=2;
+               $model->updated_at=time();
+               $model->save();
+           }
+       }
        $model->count_view +=1;
        $model->updated_at=time();
        $model->save();
@@ -290,11 +317,12 @@ class GoodsController extends ActiveController
        if($model->user_guid!=$user->user_guid && empty($love) && empty($cart) && empty($order)){
            CommonUtil::calScore('view_goods', $user->user_guid);
        }
-    
+       $comment=Comment::findAll(['goodsid'=>$model->id]);
 //        $goodsUser=User::findOne(['user_guid'=>$model->user_guid]);
        return $this->renderAjax('goods-detail',['model'=>$model,
            'goodsPhoto'=>$goodsPhoto,
-           'distance'=>$distance
+           'distance'=>$distance,
+           'comment'=>$comment
        ]);
    }
    
@@ -395,10 +423,15 @@ class GoodsController extends ActiveController
        $order->seller_user=$goods->user_guid;
        $order->orderno=Orders::getOrderNo();
        $order->seller_orderno=Orders::getSellerOrderNo($order->orderno);
+       $address=Address::find()->andWhere(['user_guid'=>$user->user_guid,'is_default'=>'1'])->one();
+       if(!empty($address)){
+           $order->address=$address->province.' '.$address->city.' '.$address->district.' '.$address->name.' '.$address->phone;
+       }
        $order->type=2;
        $order->is_car=$goods->is_car;
        $order->goodsid=$goods->id;
        $order->number=$number;
+       $order->remark=@$data['remark'];
        $order->goods_price=$goods->price;
        $order->keep_type=$goods->keep_type;
        $order->cateid=$goods->cateid;
@@ -414,6 +447,32 @@ class GoodsController extends ActiveController
            return CommonUtil::success($order->id);
        }
        return CommonUtil::error('e1002');
+   }
+   
+   public function actionAddAddress(){
+       $data=$_POST['data'];
+       $id=$data['id'];
+       $user=yii::$app->user->identity;
+       
+       Address::updateAll(['is_default'=>0],['user_guid'=>$user->user_guid]);
+       $address=new Address();
+       $address->user_guid=$user->user_guid;
+       $address->is_default=1;
+       $address->name=@$data['name'];
+       $address->phone=@$data['phone'];
+       $address->province=@$data['province'];
+       $address->city=@$data['city'];
+       $address->district=@$data['district'];
+       $address->address=@$data['address'];
+       $address->created_at=time();
+       if($address->save()){
+           $order=Orders::findOne($id);
+           $order->address=$address->province.' '.$address->city.' '.$address->district.' '.$address->name.' '.$address->phone;
+           $order->save();
+           return CommonUtil::success('success');
+       }
+       return CommonUtil::error('e1002');
+       
    }
    
    //提交加油记录
@@ -441,12 +500,11 @@ class GoodsController extends ActiveController
    }
    
    //提交加油记录
-   public  function actionComfirmOil(){
+   public  function actionConfirmOil(){
        $data=$_POST['data'];
        $id=$data['id'];
        OilRec::updateAll(['status'=>1,'updated_at'=>time()],['id'=>$id]);
            return CommonUtil::success('success');
-   
    }
    
   
@@ -597,7 +655,7 @@ class GoodsController extends ActiveController
        }
        //②、统一下单
        $input = new \WxPayUnifiedOrder();
-       $input->SetBody('e油网-'.$order->goods_name);
+       $input->SetBody($order->goods_name);
        $input->SetAttach($orderDesc);
        $input->SetOut_trade_no($orderno);
 //        $input->SetTotal_fee(100);
@@ -668,6 +726,28 @@ class GoodsController extends ActiveController
        return CommonUtil::success($data);
    }
    
+   //模板数据
+   public  function actionGetGoodsData(){
+       $data=$_POST['data'];
+       $id=$data['id'];
+       $user=yii::$app->user->identity;
+       $goodsData=Goods::findOne(['user_guid'=>$user->user_guid,'id'=>$id]);
+       if(empty($goodsData)){
+           return CommonUtil::error('e1007');
+       }
+       $goodsPhoto=GoodsPhoto::findAll(['goodsid'=>$goodsData->id]);
+       $cate=GoodsCate::findOne(['id'=>$goodsData->cateid]);
+       $data=[
+           'photos'=>$goodsPhoto,
+           'cate'=>[
+               'value'=>$cate->id,
+               'text'=>$cate->name
+           ],
+           'goodsData'=>$goodsData
+       ];
+       return CommonUtil::success($data);
+   }
+   
   public function  actionTemplateList(){
         //更新任务状态
         $user=yii::$app->user->identity;
@@ -676,10 +756,18 @@ class GoodsController extends ActiveController
     }
    
     public function  actionDelTemplate(){
-        //更新任务状态
+        //删除模板
         $data=yii::$app->request->post('data');
         $id=$data['id'];
         GoodsTemplate::deleteAll(['id'=>$id]);
+        return CommonUtil::success('success');
+    }
+    
+    public function  actionDelGoods(){
+        //删除发布
+        $data=yii::$app->request->post('data');
+        $id=$data['id'];
+        Goods::deleteAll(['id'=>$id]);
         return CommonUtil::success('success');
     }
    
@@ -739,20 +827,24 @@ class GoodsController extends ActiveController
        }elseif ($order->seller_user==$user->user_guid){
            $orderType=2;
        }
-       if($orderType==1){
+//        if($orderType==1){
            $order->is_pay=1;
            $order->pay_time=time();
-           $order->status=1;
            $order->pay_type=@$data['payType'];
-           $message=new Message();
-           $content="您发布的商品".$order->goods_name."已经有客户支付保证金,请在30分钟内支付保证金,否则订单关闭.<p class='text-center'><a href='#' class='pay-order' data-id='".$order->id."' >立即支付</a></p>";
-           $message->send(NULL,$order->seller_user, $content, 1);
-       }elseif ($orderType==2){
            $order->is_seller_pay=1;
            $order->seller_paytime=time();
            $order->status=2;
-           $order->seller_paytype=@$data['payType'];
-       }
+           $order->seller_paytype='auto';
+           $message=new Message();
+           $content="您发布的商品".$order->goods_name."已经有客户支付保证金,请在30分钟内支付保证金,否则订单关闭.<p class='text-center'><a href='#' class='pay-order' data-id='".$order->id."' >立即支付</a></p>";
+           $message->send(NULL,$order->seller_user, $content, 1);
+//        }
+//        elseif ($orderType==2){
+//            $order->is_seller_pay=1;
+//            $order->seller_paytime=time();
+//            $order->status=2;
+//            $order->seller_paytype=@$data['payType'];
+//        }
        $order->updated_at=time();
        if(!$order->save()) throw new Exception('更新订单失败!');
            $goods=Goods::findOne(['id'=>$order->goodsid]);

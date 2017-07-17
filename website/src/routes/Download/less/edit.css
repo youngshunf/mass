@@ -1,0 +1,16 @@
+
+@media screen and (min-width: 768px) {
+#nav_0_0-logo { width: 50px }
+#nav_0_0 { background-color: #ffffff }
+#nav_0_0-menu { color: #040404 }
+#content_2_0-img { height: 51vh }
+#content_2_0 { height: 60vh }
+.content7 #content_9_0-block2 .icon { width: 200px; height: 200px }
+#content_9_0-block2 { width: 45%; padding: 0 4% 20 4% }
+.content7 #content_9_0-block1 .icon { width: 200px; height: 200px }
+#content_9_0-block1 { width: 45% }
+.content7 #content_9_0-block0 .icon { width: 0px; height: 0px; margin: 0 0 0 0 }
+.content7 #content_9_0-block0 p { font-size: 0px; line-height: 0em }
+.content7 #content_9_0-block0 h3 { margin: 0 auto 0 auto; line-height: 0px; font-size: 0em }
+#content_9_0-block0 { width: 0% }
+}

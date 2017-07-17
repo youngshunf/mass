@@ -4,8 +4,6 @@ use common\models\GoodsPhoto;
 /* @var $this yii\web\View */
 ?>
 
-	
-							
 										<ul class="mui-table-view ">
 											<li class="mui-table-view-cell">
 											大众新闻
@@ -26,6 +24,8 @@ use common\models\GoodsPhoto;
                                         		</a>
                                         		</li>
                                         		<?php }?>
+                                        		
+                                        		<li class="mui-table-view-cell center more-news" style="text-align:center" data-url="http://api.51guanggao.cc/news/all"> 查看更多</li>
 										</ul>
 								
 							

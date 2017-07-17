@@ -22,10 +22,10 @@ class WxPayConfig
 	 * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
 	 * @var string
 	 */
-	const APPID = 'wx1ee62adf2712deae';
-	const MCHID = '1426797102';
-	const KEY = 'ajshajshdajshdaud119283sajbdjasd';
-	const APPSECRET = 'e1c4a9a94599f7aa37520faebe8a9ff5';
+	const APPID = 'wx4be2ed7141792ece';
+	const MCHID = '1461087902';
+	const KEY = 'aksjdhcngxjahsgdbwjqhsgdbaidjnak';
+	const APPSECRET = '7f0932d64cdbf5064bb50d74439d4bcf';
 	
 	//=======【证书路径设置】=====================================
 	/**
@@ -34,8 +34,8 @@ class WxPayConfig
 	 * API证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert，下载之前需要安装商户操作证书）
 	 * @var path
 	 */
-	const SSLCERT_PATH = '/www/eoil/common/WxpayAPI/cert/apiclient_cert.pem';
-	const SSLKEY_PATH = '/www/eoil/common/WxpayAPI/cert/apiclient_key.pem';
+	const SSLCERT_PATH = '/www/mass/common/WxpayAPI/cert/apiclient_cert.pem';
+	const SSLKEY_PATH = '/www/mass/common/WxpayAPI/cert/apiclient_key.pem';
 	
 // 	const SSLCERT_PATH = '/Applications/XAMPP/xamppfiles/htdocs/qiyouchaye/common/WxpayAPI/cert/apiclient_cert.pem';
 // 	const SSLKEY_PATH = '/Applications/XAMPP/xamppfiles/htdocs/qiyouchaye/common/WxpayAPI/cert/apiclient_key.pem';
