@@ -822,24 +822,47 @@ class UserController extends ActiveController
         $data=yii::$app->request->post('data');
         $to=$data['to'];
     
-        $chat= Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->all();
+        $chat= Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->OrderBy('created_at asc')->all();
         $res=[];
         foreach ($chat as $v){
             $sender=$v->from;
             if($v->from==$user->user_guid){
                 $sender='self';
-                $name=$user->nick;
-            
+                $name=empty($user->name)?$user->name:$user->mobile;
+                if(!empty($user->photo)){
+                    $img=yii::$app->params['photoUrl'].$user->path.'thumb/'.$user->photo;
+                }else{
+                    $img='../../images/head/1.png';
+                }
+            }else{
+                $sendUser=User::findOne(['user_guid'=>$v->from]);
+                $name = empty($user->name)?$user->name:$user->mobile;
+                if(!empty($sendUser->photo)){
+                    $img=yii::$app->params['photoUrl'].$sendUser->path.'thumb/'.$sendUser->photo;
+                }else{
+                    $img='../../images/head/1.png';
+                }
             }
             $res[]=[
                 'sender'=>$sender,
                 'name'=>$name,
                 'content'=>$v->content,
-                
+                'img'=>$img,
+                'time'=>CommonUtil::fomatTime($v->created_at)
             ];
         }
        
         return CommonUtil::success($res);
+    }
+    
+    public function actionGetChatlist(){
+        $user=yii::$app->user->identity;
+        $chatlist=Chat::find()->andWhere(['to'=>$user->user_guid])->GroupBy('from')->all();
+        foreach ($chatlist as $v){
+            $v['fromuser']=User::findOne(['user_guid'=>$v->from]);
+            $v['lastmsg']=Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->OrderBy('created_at desc')->One();
+        }
+        return $this->renderAjax('chat-list',['chatlist'=>$chatlist]);
     }
 
 

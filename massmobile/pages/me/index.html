@@ -194,6 +194,11 @@
 				通知  <span class="mui-pull-right " id="msg-num" style="margin-right: 15px;"></span>
 			</a>
 		</li>
+		<li class="mui-table-view-cell" id="my-chat" >
+			<a class="mui-navigate-right">
+				私信  <span class="mui-pull-right red"> </span>
+			</a>
+		</li>
 		<li class="mui-table-view-cell" id="my-auth" >
 			<a class="mui-navigate-right">
 				我的认证  <span class="mui-pull-right red"> </span>
@@ -402,6 +407,12 @@
 				url:'my_cart.html',
 			});
 		});
+		$('#my-chat').click(function(){
+			mui.openWindow({
+				url:'chat_list.html',
+			});
+		});
+		
 		$('#message').click(function(){
 			mui.openWindow({
 				url:'message.html',

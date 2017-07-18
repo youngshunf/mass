@@ -85,6 +85,7 @@ use common\models\User;
     						<span class="mui-badge mui-badge-danger">未认证</span>
     						<?php }?>
     						</p>
+    						<p class="center"><a class="mui-btn mui-btn-warning im-chat" href="javascript:;" data-to="<?= $model->user_guid ?>" data-toname="<?= empty($model->user->name)?$model->user->mobile:$model->user->name ?>">联系TA</a></p>
     				</div>
     				</a>
     			</li>

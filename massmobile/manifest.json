@@ -234,9 +234,9 @@
 				"android": {
 					"mdpi": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png"
+					"hdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png"
 				}
 			},
 			"debug": true

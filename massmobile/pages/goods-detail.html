@@ -720,7 +720,18 @@
 			});
 		});
 
-	
+	mui(document).on('tap','.im-chat',function(){
+			var to=$(this).data('to');
+			var toname=$(this).data('toname');
+			
+			mui.openWindow({
+				url:'me/im-chat.html',
+				extras:{
+					to:to,
+					toname:toname
+				}
+			})
+		})
 	
 	</script>
 </html>
