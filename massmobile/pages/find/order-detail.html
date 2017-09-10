@@ -216,9 +216,33 @@
 				}
 			});
 	}
+	
+//	mui(document).on('')
+	$(document).on('change','#use-left',function(){
+		var userLeft=$(this).is(':checked');
+		console.log(userLeft);
+		var totalAmount=$('#total-amount').data('amount');
+		if(userLeft){
+			var balance=$('#balance').data('balance');
+			if(balance<=0){
+				mui.alert('您没有可用余额')
+				$(this).val(false);
+			}
+			var left=totalAmount-balance;
+			if(left<0){
+				left=0;
+			}
+			left=left.toFixed(2);
+			$('#amount').html('￥'+left);
+		}else{
+			$('#amount').html('￥'+totalAmount);
+		}
+	});
+	
 	mui(document).on('tap','#pay-order',function(){
 		var orderid=$(this).data('orderid');
 		var payType=$('input[name=payType]:checked').val();
+		var useLeft=$('#useLeft').is(':checked');
 		console.log('支付方式:'+payType);
 		if(!payType || (payType!='wxpay' && payType !='alipay')){
 			mui.alert('请选择支付方式!');
@@ -236,7 +260,8 @@
 		var data={
 			orderid:orderid,
 			payType:payType,
-			orderType:orderType
+			orderType:orderType,
+			useLeft:useLeft
 		};
 		console.log(data);
 		$.ajax({
@@ -256,6 +281,17 @@
 						mui.back();
 						return false;
 					}
+					
+					if(rs=='pay-success'){
+						mui.openWindow({
+							url:'pay-result.html',
+							extras:{
+								result:'success'
+							}
+						})
+						return ;
+					}
+					
 					if(payType=='alipay'){
 						var order=rs;
 						pay(payType,order,orderid,orderType);

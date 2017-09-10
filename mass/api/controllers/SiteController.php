@@ -800,7 +800,7 @@ class SiteController extends Controller
       $wgtUrl= 'http://images.51guanggao.cc/wgt/H593B44B5.wgt';
        
       $updateInfo=[
-          'newVer'=>'1.1.9',
+          'newVer'=>'1.2.2',
           'wgtUrl'=>$wgtUrl
       ];
       

@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'orderno',
             'goods_name',
              'number',
+            'total_amount',
+            'balance_amount',
             'amount',
             ['attribute'=>'status',
                 'filter'=>['0'=>'待付款','1'=>'待发货','2'=>'待确认收货','3'=>'已完成','98'=>'已退款' ,'99'=>'已取消'],

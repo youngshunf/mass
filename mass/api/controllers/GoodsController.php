@@ -330,6 +330,7 @@ class GoodsController extends ActiveController
        $data=$_POST['data'];
        $id=$data['id'];
        $model=Orders::findOne($id);
+       $user=yii::$app->user->identity;
        if($model->status==0 || $model->status==1){
            if(time()-$model->updated_at>1800){
                $model->status=98;
@@ -341,10 +342,12 @@ class GoodsController extends ActiveController
        $oilRec=OilRec::findAll(['orderid'=>$id]);
        $num=OilRec::find()->andWhere(['orderid'=>$id])->count('num');
        $leftNum=$model->number-$num;
+       $wallet=Wallet::findOne(['user_guid'=>$user->user_guid]);
        return $this->renderAjax('order-detail',['model'=>$model,
            'goodsPhoto'=>$goodsPhoto,
            'oilRec'=>$oilRec,
-           'leftNum'=>$leftNum
+           'leftNum'=>$leftNum,
+           'wallet'=>$wallet
        ]);
    }
    
@@ -775,7 +778,9 @@ class GoodsController extends ActiveController
        $data=$_POST['data'];
        $orderid=@$data['orderid'];
        $payType=@$data['payType'];
+       $useLeft=@$data['useLeft'];
        $order=Orders::findOne($orderid);
+       
        $user=yii::$app->user->identity;
        if($order->user_guid==$user->user_guid){
            $orderType=1;
@@ -788,6 +793,31 @@ class GoodsController extends ActiveController
        
        if($order->status==98){
            return 'closed';
+       }
+       
+       if($useLeft){
+           $wallet=Wallet::findOne(['user_guid'=>$user->user_guid]);
+           if($wallet->balance >= $order->total_amount){
+               $wallet->balance -=$order->total_amount;
+               $order->balance_amount=$order->total_amount;
+               $order->amount=0;
+               $order->is_pay=1;
+               $order->pay_time=time();
+               $order->pay_type='balance';
+               $order->is_seller_pay=1;
+               $order->seller_paytime=time();
+               $order->status=2;
+               $order->seller_paytype='auto';
+               $order->updated_at=time();
+               $wallet->updated_at=time();
+               if($order->save() && $wallet->save()){
+                   return 'pay-success';
+               }
+           }else{
+               $order->amount=$order->total_amount-$wallet->balance;
+               $order->balance_amount=$wallet->balance;
+               $order->save();
+           }
        }
 
        
@@ -817,6 +847,7 @@ class GoodsController extends ActiveController
        $data=$_POST['data'];
         
        $id=@$data['orderid'];
+      
        //$orderType=@$data['orderType'];
        $trans=yii::$app->db->beginTransaction();
        try{
@@ -853,7 +884,11 @@ class GoodsController extends ActiveController
                $goods->updated_at=time();
                if(!$goods->save())  throw new Exception('更新产品状态失败!');
            }
-           
+        if($order->balance_amount>0){
+            $wallet=Wallet::findOne(['user_guid'=>$user->user_guid]);
+            $wallet->balance=0;
+            $wallet->save();
+        }
      
          
        $trans->commit();

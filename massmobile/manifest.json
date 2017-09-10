@@ -7,8 +7,8 @@
 	"id": "H593B44B5",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "大众广告",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.1.9",/*应用版本名称*/
-		"code": "96"
+		"name": "1.2.3",/*应用版本名称*/
+		"code": "100"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -213,30 +213,30 @@
 			"splashscreen": {
 				"ios": {
 					"iphone": {
-						"default": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",
-						"retina47": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",
-						"retina55": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",
-						"retina55l": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png"
+						"default": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",
+						"retina47": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",
+						"retina55": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",
+						"retina55l": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png"
 					},
 					"ipad": {
-						"portrait": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad竖屏启动图片，分辨率：768x1004*/
-						"portrait-retina": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
-						"landscape": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad横屏启动图片，分辨率：1024x748*/
-						"landscape-retina": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
-						"portrait7": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
-						"portrait-retina7": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
-						"landscape7": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
-						"landscape-retina7": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png"
+						"portrait": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png"
 					}
 				},
 				"android": {
-					"mdpi": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "/Users/youngmac/private/杨顺富/private/E油网/大众广告/zhong-splash.png", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "/Applications/XAMPP/xamppfiles/htdocs/mass/01.png"
+					"mdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/杨顺富/private/E油网/大众广告/zhong-splash.png"
 				}
 			},
 			"debug": true
@@ -459,7 +459,8 @@
 					"pages/home/map-list.html",
 					"pages/task-detail.html",
 					"pages/goods-detail.html",
-					"load-url.html"
+					"load-url.html",
+					"pages/home/goods.html"
 				],
 				"priority": 0
 			},
@@ -485,7 +486,9 @@
 					"pages/me/account.html",
 					"pages/me/user-info.html",
 					"pages/me/setting.html",
-					"pages/find/my-order.html"
+					"pages/find/my-order.html",
+					"pages/me/chat_list.html",
+					"pages/me/my-auth-view.html"
 				],
 				"priority": 0
 			},
@@ -949,9 +952,14 @@
 					"js/mui.zoom.js",
 					"images/around-run.png",
 					"js/mui.previewimage.js",
-					"css/MPreview.mobile.css"
+					"css/MPreview.mobile.css",
+					"js/mui.min.js"
 				],
-				"refer": [],
+				"refer": [
+					"pages/user-goods.html",
+					"pages/me/im-chat.html",
+					"pages/find/order-detail.html"
+				],
 				"priority": 0
 			},
 			"pages/find/my-order.html": {
@@ -959,14 +967,114 @@
 					"js/controller/orderCtrl.js",
 					"js/lrz.bundle.js",
 					"js/services/httpService.js",
-					"js/angular.min.js"
+					"js/angular.min.js",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/config.js"
 				],
-				"refer": [],
+				"refer": [
+					"pages/find/order-detail.html"
+				],
 				"priority": 0
 			},
 			"load-url.html": {
 				"resources": [
-					"js/shareUrl.js"
+					"js/shareUrl.js",
+					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/home/goods.html": {
+				"resources": [
+					"js/moment.min.js",
+					"js/mui.js",
+					"js/app.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/config.js"
+				],
+				"refer": [
+					"pages/goods-detail.html"
+				],
+				"priority": 0
+			},
+			"pages/me/im-chat.html": {
+				"resources": [
+					"js/mui.imageViewer.js",
+					"js/arttmpl.js",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/config.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/me/chat_list.html": {
+				"resources": [
+					"js/app.js",
+					"js/lrz.bundle.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/config.js",
+					"images/head/1.png"
+				],
+				"refer": [
+					"pages/me/im-chat.html"
+				],
+				"priority": 0
+			},
+			"pages/me/my-auth-view.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/lrz.bundle.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/config.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/find/order-detail.html": {
+				"resources": [
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/jquery.downCount.js",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"js/pay.js",
+					"js/city.data-3.js",
+					"js/app.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"js/swiper.min.js",
+					"js/jquery-1.8.3.min.js",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/swiper.min.css",
+					"js/config.js"
+				],
+				"refer": [
+					"pages/find/pay-result.html"
+				],
+				"priority": 0
+			},
+			"pages/find/pay-result.html": {
+				"resources": [
+					"css/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0
@@ -1098,7 +1206,6 @@
 				"Font-Awesome-3.2.1/css/font-awesome.css",
 				"Font-Awesome-3.2.1/src/_includes/examples/buttons.html",
 				"Font-Awesome-3.2.1/src/assets/js/ZeroClipboard-1.1.7.swf",
-				"css/mui.poppicker.css",
 				"images/banner-02.jpg",
 				"Font-Awesome-3.2.1/src/_plugins/site.rb",
 				"Font-Awesome-3.2.1/src/_includes/tests/rotated-flipped-inside-btn.html",
@@ -1122,7 +1229,6 @@
 				"Font-Awesome-3.2.1/src/assets/ico/favicon.ico",
 				"Font-Awesome-3.2.1/src/assets/font-awesome/font/FontAwesome.otf",
 				"images/messages.png",
-				"js/mui.poppicker.js",
 				"Font-Awesome-3.2.1/src/assets/less/bootstrap-2.3.2/alerts.less",
 				"Font-Awesome-3.2.1/src/_includes/stripe-social.html",
 				"Font-Awesome-3.2.1/src/_includes/icons/directional.html",
@@ -1138,7 +1244,6 @@
 				"Font-Awesome-3.2.1/src/assets/less/bootstrap-2.3.2/navbar.less",
 				"Font-Awesome-3.2.1/src/assets/less/bootstrap-2.3.2/layouts.less",
 				"Font-Awesome-3.2.1/src/assets/less/bootstrap-2.3.2/scaffolding.less",
-				"js/city.data-3.js",
 				"Font-Awesome-3.2.1/src/assets/less/bootstrap-2.3.2/carousel.less",
 				"Font-Awesome-3.2.1/src/_includes/ads/carbon-dark-vertical.html",
 				"Font-Awesome-3.2.1/src/assets/js/jquery-1.7.1.min.js",

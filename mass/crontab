@@ -13,8 +13,8 @@ MAILTO=root
 # |  |  |  |  |
 # *  *  *  *  * user-name  command to be executed
 
-#01 0 * * * root /www/webroot/qiyouchaye/daycheck.sh
+
 05 0 * * * root /www/eoil/daycheck.sh
 */15 * * * * root /www/eoil/hourcheck.sh
-05 0 * * * root /www/mass/daycheck.sh
+01 0 * * * root /www/mass/daycheck.sh
 */15 * * * * root /www/mass/hourcheck.sh

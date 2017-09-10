@@ -38,6 +38,7 @@ var config={
 	getChatListUrl:serverBaseUrl+'user/get-chatlist',//
 	getNotifyUrl:serverBaseUrl+'user/get-notify',
 	getMsgNumUrl:serverBaseUrl+'user/get-msgnum',
+	getChatNumUrl:serverBaseUrl+'user/get-chatnum',
 	updateAlipayUrl:serverBaseUrl+'user/update-alipay',//修改支付宝账号
 	updateNameUrl:serverBaseUrl+'user/update-name',//修改姓名
 	updateNickUrl:serverBaseUrl+'user/update-nick',//修改姓名

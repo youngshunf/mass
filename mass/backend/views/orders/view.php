@@ -45,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ] ,
             'goods_name',
             'number',
+            'total_amount',
+            'balance_amount',
             'amount',
               ['attribute'=>'status',
                'value'=>CommonUtil::getDescByValue('orders', 'status', $model->status),

@@ -58,7 +58,16 @@ padding-bottom: 200px">
 				</div>
 			</li>
 			 <li class="mui-table-view-cell " >
-				<p>数量:<?= $model->number ?> <span class="mui-pull-right">订单金额:￥<?= $model->amount ?></span></p>
+				<p>数量:<?= $model->number ?> <span class="mui-pull-right" id="total-amount" data-amount="<?= $model->total_amount ?>">订单金额:￥<?= $model->total_amount ?></span></p>
+			</li>
+			<?php if(!empty($wallet)){?>
+			<li class="mui-table-view-cell mui-checkbox mui-left use-left" >
+				<input name="useLeft" id="use-left" type="checkbox"  <?php if($model->balance_amount>0) echo 'checked="checked" disabled="disabled"'?>>使用余额支付 <span class="mui-pull-right">可用余额:<span id="balance" data-balance="<?= $wallet->balance ?>"> ￥ <?= $wallet->balance ?> </span></span></p>
+			</li>
+			<?php }?>
+			
+			<li class="mui-table-view-cell " >
+				<p><span class="mui-pull-right red" >实际支付金额: <span id="amount"> ￥<?= $model->amount ?> </span></span></p>
 			</li>
 			
 			<?php if($model->is_car==1 && ($model->status==1 || $model->status==2) ){?>

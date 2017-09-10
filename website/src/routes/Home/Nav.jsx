@@ -19,18 +19,18 @@ class Header extends React.Component {
     });
   }
   handleClick = (e) => {
-    console.log('Clicked: ', e);
-    if(e.key=='1'){
-    	console.log(e.key);
-    	browserHistory.push('/download');
-    }
+    // console.log('Clicked: ', e);
+    // if(e.key=='1'){
+    // 	console.log(e.key);
+    // 	browserHistory.push('/download');
+    // }
   }
 
   render() {
     const props = { ...this.props };
     const isMode = props.isMode;
     delete props.isMode;
-    const navData = { menu1: '首页', menu2: '下载'};
+    const navData = { };
     const navChildren = Object.keys(navData)
       .map((key, i) => (<Item key={i} >{navData[key]}</Item>));
     return (<TweenOne

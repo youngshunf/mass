@@ -1,23 +1,36 @@
 <?php
 
 use common\models\CommonUtil;
+use common\models\User;
+use common\models\Chat;
+use common\models\ChatMsg;
 
 ?>	
 <ul class="mui-table-view">
 <?php 
 if(!empty($chatlist)){
-    foreach ($chatlist as $k=>$v){?>
+    $user=yii::$app->user->identity;
+    foreach ($chatlist as $k=>$v){
+    $lastMsg=ChatMsg::find()->where(['chatid'=>$v['id']])->orderBy('created_at desc')->One();
+    $sender=User::findOne(['user_guid'=>$lastMsg['from']]);
+    if($user->user_guid==$lastMsg['from']){
+        $to=$lastMsg['to'];
+    }else{
+        $to=$lastMsg['from'];
+    }
+    $toUser=User::findOne(['user_guid'=>$to]);
+        ?>
 	
-				<li class="mui-table-view-cell mui-media im-chat" data-to="<?= $v->from?>" data-toname="<?= empty($v['fromuser']['name'])?$v['fromuser']['mobile']:$v['fromuser']['name']?>">
+				<li class="mui-table-view-cell mui-media im-chat" data-to="<?= $to?>" data-toname="<?= empty($toUser['name'])?$toUser['mobile']:$toUser['name']?>">
 					<a href="javascript:;">
-					<?php if(!empty($v['fromuser'])){?>
-						<img class="mui-media-object mui-pull-left" src="<?= yii::$app->params['photoUrl'].$v['fromuser']['path'].'thumb/'.$v['fromuser']['photo']?>">
+					<?php if(!empty($toUser)){?>
+						<img class="mui-media-object mui-pull-left" src="<?= yii::$app->params['photoUrl'].$toUser['path'].'thumb/'.$toUser['photo']?>">
 						<?php }else{?>
 						<img class="mui-media-object mui-pull-left" src="../../images/head/1.png">
 						<?php }?>
 						<div class="mui-media-body">
-							<?= empty($v['fromuser']['name'])?$v['fromuser']['mobile']:$v['fromuser']['name']?>
-							<p class='mui-ellipsis'><?= $v['lastmsg']['content'] ?></p>
+							<?= empty($toUser['name'])?$toUser['mobile']:$toUser['name']?>
+							<p class='mui-ellipsis'><?= $lastMsg['content'] ?></p>
 						</div>
 					</a>
 				</li>

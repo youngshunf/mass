@@ -102,7 +102,7 @@
 				vertical-align: top;
 				text-align: center;
 				float: left;
-				padding: 3px;
+				
 				color: #ddd;
 			}
 			
@@ -306,9 +306,10 @@
 			<% for(var i in record){ var item=record[i]; %>
 				<div class="msg-item <%= (item.sender=='self'?' msg-item-self':'') %>" msg-type='<%=(item.type)%>' msg-content='<%=(item.content)%>'>
 					<% if(item.sender=='self' ) { %>
-						<i class="msg-user mui-icon mui-icon-person"></i>
+						<!--<i class="msg-user mui-icon mui-icon-person"></i>-->
+						<img class="msg-user" src="<%= item.img %>" alt="" />
 					<% } else { %>
-						<img class="msg-user-img" src="../images/logo.png" alt="" />
+						<img class="msg-user-img" src="<%= item.img %>" alt="" />
 					<% } %>
 					<div class="msg-content">
 						<div class="msg-content-inner">
@@ -373,6 +374,11 @@
 					var self=plus.webview.currentWebview();
 					var to=self.to;
 					var toname=self.toname;
+					var userInfo=app.getUserInfo();
+					var userImg='../../images/head/1.png';
+					if(userInfo.photo!=null){
+					userImg=avatarUrl+userInfo.path+'thumb/'+userInfo.photo;
+					}
 					doc.querySelector('#title').innerHTML=toname;
 					plus.webview.currentWebview().setStyle({
 						softinputMode: "adjustResize"
@@ -465,12 +471,13 @@
 								}
 								if(rs.result=='success'){
 									record=rs.data;
+									
 									bindMsgList();
 								}
 								
 							},
 							error:function(e){
-								console.log('消息发送失败:'+e.status);
+								console.log('获取消息记录失败:'+e.status);
 								console.log(JSON.stringify(e));
 							}
 						});
@@ -554,6 +561,7 @@
 							send({
 								sender: 'self',
 								type: 'text',
+								img:userImg,
 								content: ui.boxMsgText.value.replace(new RegExp('\n', 'gm'), '<br/>')
 							});
 							ui.boxMsgText.value = '';
@@ -578,43 +586,43 @@
 							}, 150);
 						}
 					}, false);
-					ui.footerLeft.addEventListener('tap', function(event) {
-						var btnArray = [{
-							title: "拍照"
-						}, {
-							title: "从相册选择"
-						}];
-						plus.nativeUI.actionSheet({
-							title: "选择照片",
-							cancel: "取消",
-							buttons: btnArray
-						}, function(e) {
-							var index = e.index;
-							switch (index) {
-								case 0:
-									break;
-								case 1:
-									var cmr = plus.camera.getCamera();
-									cmr.captureImage(function(path) {
-										send({
-											sender: 'self',
-											type: 'image',
-											content: "file://" + plus.io.convertLocalFileSystemURL(path)
-										});
-									}, function(err) {});
-									break;
-								case 2:
-									plus.gallery.pick(function(path) {
-										send({
-											sender: 'self',
-											type: 'image',
-											content: path
-										});
-									}, function(err) {}, null);
-									break;
-							}
-						});
-					}, false); 
+//					ui.footerLeft.addEventListener('tap', function(event) {
+//						var btnArray = [{
+//							title: "拍照"
+//						}, {
+//							title: "从相册选择"
+//						}];
+//						plus.nativeUI.actionSheet({
+//							title: "选择照片",
+//							cancel: "取消",
+//							buttons: btnArray
+//						}, function(e) {
+//							var index = e.index;
+//							switch (index) {
+//								case 0:
+//									break;
+//								case 1:
+//									var cmr = plus.camera.getCamera();
+//									cmr.captureImage(function(path) {
+//										send({
+//											sender: 'self',
+//											type: 'image',
+//											content: "file://" + plus.io.convertLocalFileSystemURL(path)
+//										});
+//									}, function(err) {});
+//									break;
+//								case 2:
+//									plus.gallery.pick(function(path) {
+//										send({
+//											sender: 'self',
+//											type: 'image',
+//											content: path
+//										});
+//									}, function(err) {}, null);
+//									break;
+//							}
+//						});
+//					}, false); 
 					var setSoundAlertVisable=function(show){
 						if(show){
 							ui.boxSoundAlert.style.display = 'block';

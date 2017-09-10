@@ -196,7 +196,7 @@
 		</li>
 		<li class="mui-table-view-cell" id="my-chat" >
 			<a class="mui-navigate-right">
-				私信  <span class="mui-pull-right red"> </span>
+				私信  <span class="mui-pull-right " id="chat-num" style="margin-right: 15px;"></span>
 			</a>
 		</li>
 		<li class="mui-table-view-cell" id="my-auth" >
@@ -350,6 +350,28 @@
 							$('#msg-num').html('<span class="mui-badge mui-badge-danger" >'+rs.data+'</span>');
 						}else{
 							$('#msg-num').html('');
+						}
+					}
+				},
+				error:function(e){
+					console.log(e.status);
+				}
+			});
+			
+			$.ajax({
+				type:"post",
+				url:app.getAuthUrl(config.getChatNumUrl),
+				dataType:'json',
+				success:function(rs){
+					console.log(rs);
+					if(typeof rs =='string'){
+						rs=JSON.parse(rs);
+					}
+					if(rs.result=='success'){
+						if(rs.data>0){
+							$('#chat-num').html('<span class="mui-badge mui-badge-danger" >'+rs.data+'</span>');
+						}else{
+							$('#chat-num').html('');
 						}
 					}
 				},

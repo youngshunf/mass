@@ -26,6 +26,27 @@ class Content extends React.Component {
           className={`content-template ${props.className}`}
           location={props.id}
         >
+        <QueueAnim
+          className={`${props.className}-text`}
+          type={animType.queue}
+          key="text"
+          leaveReverse
+          ease={['easeOutCubic', 'easeInCubic']}
+          id={`${props.id}-textWrapper`}
+        >
+          <h1 key="h1" id={`${props.id}-title`}>
+            购物流程
+          </h1>
+          <p key="p" id={`${props.id}-content`}>
+          1、客户点击立即购买，弹出界面，可以在填写购买数量和留言后，点击确定即下订单
+          2、下订单后，出现支付界面，客户支付保证金前，可以新增或修改收货地址，但是，支付保证金后不得再修改收货地址
+          3、客户支付保证金前可以取消订单
+          4、商家看到客户支付信息后，按照收货地址发货
+          5、客户收到货后，在履行期内，按商家在大众广告预留的收款方式付款给商家，并确认履行
+          6、商家收到款后，确认履行，客户保证金过了申诉期退回到客户帐户
+
+          </p>
+        </QueueAnim>
           <TweenOne
             key="img"
             animation={animType.one}
@@ -37,21 +58,7 @@ class Content extends React.Component {
               <img width="100%" src="http://images.51guanggao.cc/photo/01.png" />
             </span>
           </TweenOne>
-          <QueueAnim
-            className={`${props.className}-text`}
-            type={animType.queue}
-            key="text"
-            leaveReverse
-            ease={['easeOutCubic', 'easeInCubic']}
-            id={`${props.id}-textWrapper`}
-          >
-            <h1 key="h1" id={`${props.id}-title`}>
-              大众广告
-            </h1>
-            <p key="p" id={`${props.id}-content`}>
-              大众广告是永久免费发布信息的平台，免费为大众提供发布招聘求职、房产、汽车服务（新车，二手车、专车、租车、拼车、代驾）、公益（献爱心、留言板、祝福栏）、大众加油、大众新闻、购物（吃喝玩乐、衣食住行、代送代取）、教育培训、婚恋交友、服务上门等信息类、购物类、新闻类、工具类查询信息。
-            </p>
-          </QueueAnim>
+
         </OverPack>
       </div>
     );

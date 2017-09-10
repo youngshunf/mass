@@ -6,6 +6,7 @@ import { scrollScreen } from 'rc-scroll-anim';
 import Nav from './Nav';
 import Content0 from './Content0';
 import Content11 from '../Download/Content1';
+import Content41 from './Content30';
 import Content1 from './Content1';
 import Content2 from './Content2';
 import Content3 from './Content3';
@@ -51,8 +52,9 @@ export default class Home extends React.Component {
 //    <Content0 id="content_2_0" key="content_2_0" isMode={this.state.isMode}/>,
       <Content1 id="content_3_0" key="content_3_0" isMode={this.state.isMode}/>,
       <Content2 id="content_2_0" key="content_2_0" isMode={this.state.isMode}/>,
-      <Content3 id="content_3_1" key="content_3_1" isMode={this.state.isMode}/>,
+      <Content3 id="content_2_1" key="content_3_1" isMode={this.state.isMode}/>,
       <Content4 id="content_2_1" key="content_2_1" isMode={this.state.isMode}/>,
+      <Content41 id="content_2_1" key="content_4_1" isMode={this.state.isMode}/>,
       <Content5 id="content_4_0" key="content_4_0" isMode={this.state.isMode}/>,
       <Content6 id="content_1_1" key="content_1_1" isMode={this.state.isMode}/>,
 	  <Content11 id="content_9_0" key="content_9_0" isMode={this.state.isMode}/>,

@@ -444,18 +444,8 @@ class UserController extends ActiveController
        $goods->updated_at=time();
        $goods->save();
        if($shoppingCart->save()){
-                $userScore=new UserScore();
-                $userScore->user_guid=$user->user_guid;
-                $userScore->type=3;
-                $userScore->score=5;
-                $userScore->desc='添加商品进购物车';
-                $userScore->created_at=time();
-                if($userScore->save()){
-                    $scoreUser=User::findOne(['user_guid'=>$user->user_guid]);
-                    $scoreUser->score+=$userScore->score;
-                    $scoreUser->save();
-                    return CommonUtil::success($scoreUser);
-                }
+                CommonUtil::calScore('add_cart', $user->user_guid);
+                return CommonUtil::success('success');
        }
        return CommonUtil::error('e1002');
         
@@ -805,28 +795,49 @@ class UserController extends ActiveController
         $user=yii::$app->user->identity;
         $data=yii::$app->request->post('data');
         
-        $chat=new Chat();
-        $chat->from=$user->user_guid;
-        $chat->to=@$data['to'];
-        $chat->content=@$data['content'];
-        $chat->type='text';
-        $chat->created_at=time();
-        if(!$chat->save()){
-            return CommonUtil::error('e1002');
+        $user_guid=$user->user_guid;
+        $to=@$data['to'];
+        $cmdStr = " SELECT * FROM `chat` WHERE LOCATE('$user_guid',members)>0 and LOCATE('$to',members)>0";
+        $chat=yii::$app->db->createCommand($cmdStr)->queryOne();
+        if(empty($chat)){
+            $chat=new Chat();
+            $chat->members=$user->user_guid.','.$to;
+            $chat->created_at=time();
+            if(!$chat->save()){
+                return CommonUtil::error('e1002');
+            }
         }
-        return CommonUtil::success('success');
+        $chatMsg=new ChatMsg();
+        $chatMsg->chatid=$chat['id'];
+        $chatMsg->from=$user_guid;
+        $chatMsg->to=$to;
+        $chatMsg->content=@$data['content'];
+//         $chatMsg->type='text';
+        $chatMsg->created_at=time();
+        if($chatMsg->save()){
+            return CommonUtil::success('success');
+        }
+      
+        return CommonUtil::error('e1002');
     }
     
     public function actionGetRecord(){
         $user=yii::$app->user->identity;
         $data=yii::$app->request->post('data');
-        $to=$data['to'];
-    
-        $chat= Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->OrderBy('created_at asc')->all();
+        $to=@$data['to'];
+        $user_guid=$user->user_guid;
+        $cmdStr = " SELECT * FROM `chat` WHERE LOCATE('$user_guid',members)>0 and LOCATE('$to',members)>0";
+        $chat=yii::$app->db->createCommand($cmdStr)->queryOne();
         $res=[];
-        foreach ($chat as $v){
+        if(empty($chat)){
+           
+            return CommonUtil::success($res);
+        }
+        $chatMsg=ChatMsg::find()->andWhere(['chatid'=>$chat['id']])->orderBy('created_at asc')->all();
+        ChatMsg::updateAll(['is_read'=>'1'],['chatid'=>$chat['id'],'to'=>$user_guid]);
+        foreach ($chatMsg as $v){
             $sender=$v->from;
-            if($v->from==$user->user_guid){
+            if($sender==$user->user_guid){
                 $sender='self';
                 $name=empty($user->name)?$user->name:$user->mobile;
                 if(!empty($user->photo)){
@@ -848,6 +859,7 @@ class UserController extends ActiveController
                 'name'=>$name,
                 'content'=>$v->content,
                 'img'=>$img,
+                'type'=>'text',
                 'time'=>CommonUtil::fomatTime($v->created_at)
             ];
         }
@@ -857,14 +869,20 @@ class UserController extends ActiveController
     
     public function actionGetChatlist(){
         $user=yii::$app->user->identity;
-        $chatlist=Chat::find()->andWhere(['to'=>$user->user_guid])->GroupBy('from')->all();
-        foreach ($chatlist as $v){
-            $v['fromuser']=User::findOne(['user_guid'=>$v->from]);
-            $v['lastmsg']=Chat::find()->where(['from'=>$user->user_guid,'to'=>$to])->orWhere(['from'=>$to,'to'=>$user->user_guid])->OrderBy('created_at desc')->One();
-        }
+        $user_guid=$user->user_guid;
+        $cmdStr = " SELECT * FROM `chat` WHERE LOCATE('$user_guid',members)>0";
+        $chatlist=yii::$app->db->createCommand($cmdStr)->queryAll();
+      
         return $this->renderAjax('chat-list',['chatlist'=>$chatlist]);
     }
-
+   
+    public function actionGetChatnum(){
+        $user=yii::$app->user->identity;
+        $count=ChatMsg::find()->andWhere(['to'=>$user->user_guid,'is_read'=>'0'])->count();
+        return CommonUtil::success($count);
+    }
+    
+    
 
 
 }

@@ -34,7 +34,7 @@ class Content extends React.Component {
             resetStyleBool
           >
             <span id={`${props.id}-img`}>
-              <img width="100%" src="http://images.51guanggao.cc/photo/04.png" />
+              <img width="100%" src="http://images.51guanggao.cc/photo/15.png" />
             </span>
           </TweenOne>
           <QueueAnim
@@ -46,10 +46,11 @@ class Content extends React.Component {
             id={`${props.id}-textWrapper`}
           >
             <h1 key="h1" id={`${props.id}-title`}>
-              免提现模式
+              免提现模式(购物类)
             </h1>
             <p key="p" id={`${props.id}-content`}>
-              账户中的现金，保持购物类信息，在对方购买后的保证金支付就可以，交易完成，双方确认履行，退回各自账户中的保证金，可以重复使用，免去提现收费的困扰
+            <p>1、退到客户账户中的保证金，可以重复使用，免去提现收费的困扰</p>
+            <p>2、商家在大众广告可以预留任意收款方式，免去高额的提现费用</p>
             </p>
           </QueueAnim>
         </OverPack>

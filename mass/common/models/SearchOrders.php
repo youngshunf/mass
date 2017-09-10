@@ -42,7 +42,7 @@ class SearchOrders extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+        $query = Orders::find()->orderBy('created_at desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

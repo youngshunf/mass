@@ -35,12 +35,17 @@ class Content extends React.Component {
             ease={['easeOutCubic', 'easeInCubic']}
             id={`${props.id}-textWrapper`}
           >
+           <div key="p" id={`${props.id}-content`}>
             <h1 key="h1" id={`${props.id}-title`}>
-              保证金模式
+              保证金模式(购物类)
             </h1>
-            <p key="p" id={`${props.id}-content`}>
-              购物类信息，发布者发布信息，不用支付保证金，只有在对方购买后，发布者才支付对等的保证金，以确保双方履行
-            </p>
+           
+             <p> 1、商家发布信息，不用支付保证金</p>
+							<p>2、客户购买时，支付全款保证金到大众广告</p>
+						<p>3、商家看到客户支付信息，然后发货</p>
+              <p>4、客户收到货后，在履行期内，按商家在大众广告预留的收款方式付款给商家</p>
+            <p>5、双方确认履行后，客户保证金过了申诉期退回到客户帐户，以备下次继续使用</p>
+            </div>
           </QueueAnim>
           <TweenOne
             key="img"
@@ -50,7 +55,7 @@ class Content extends React.Component {
             resetStyleBool
           >
             <span id={`${props.id}-img`}>
-              <img width="100%" src="http://images.51guanggao.cc/photo/03.png" />
+              <img width="100%" src="http://images.51guanggao.cc/photo/16.png" />
             </span>
           </TweenOne>
         </OverPack>

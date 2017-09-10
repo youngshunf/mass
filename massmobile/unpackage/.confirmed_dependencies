@@ -115,7 +115,9 @@
       "js/config.js"
     ],
     "refer": [
-      "pages/find/my-order.html"
+      "pages/find/my-order.html",
+      "pages/me/chat_list.html",
+      "pages/me/my-auth-view.html"
     ]
   },
   "pages/home/index.html": {
@@ -176,7 +178,8 @@
       "js/app.js"
     ],
     "refer": [
-      "load-url.html"
+      "load-url.html",
+      "pages/home/goods.html"
     ]
   },
   "pages/find/my-order.html": {
@@ -184,13 +187,121 @@
       "js/controller/orderCtrl.js",
       "js/lrz.bundle.js",
       "js/services/httpService.js",
-      "js/angular.min.js"
+      "js/angular.min.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/config.js"
     ],
-    "refer": []
+    "refer": [
+      "pages/find/order-detail.html"
+    ]
   },
   "load-url.html": {
     "resources": [
-      "js/shareUrl.js"
+      "js/shareUrl.js",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "pages/goods-detail.html": {
+    "resources": [
+      "js/mui.zoom.js",
+      "images/around-run.png",
+      "js/mui.previewimage.js",
+      "css/MPreview.mobile.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "pages/user-goods.html",
+      "pages/me/im-chat.html",
+      "pages/find/order-detail.html"
+    ]
+  },
+  "pages/home/goods.html": {
+    "resources": [
+      "js/moment.min.js",
+      "js/mui.js",
+      "js/app.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/config.js"
+    ],
+    "refer": [
+      "pages/goods-detail.html"
+    ]
+  },
+  "pages/me/im-chat.html": {
+    "resources": [
+      "js/mui.imageViewer.js",
+      "js/arttmpl.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/config.js"
+    ],
+    "refer": []
+  },
+  "pages/me/chat_list.html": {
+    "resources": [
+      "js/app.js",
+      "js/lrz.bundle.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/config.js",
+      "images/head/1.png"
+    ],
+    "refer": [
+      "pages/me/im-chat.html"
+    ]
+  },
+  "pages/me/my-auth-view.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "js/lrz.bundle.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/config.js"
+    ],
+    "refer": []
+  },
+  "pages/find/order-detail.html": {
+    "resources": [
+      "js/mui.picker.js",
+      "js/mui.poppicker.js",
+      "js/jquery.downCount.js",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/pay.js",
+      "js/city.data-3.js",
+      "js/app.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "js/swiper.min.js",
+      "js/jquery-1.8.3.min.js",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "css/swiper.min.css",
+      "js/config.js"
+    ],
+    "refer": [
+      "pages/find/pay-result.html"
+    ]
+  },
+  "pages/find/pay-result.html": {
+    "resources": [
+      "css/iconfont.woff"
     ]
   }
 }

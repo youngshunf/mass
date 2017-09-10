@@ -95,37 +95,22 @@ class FianceController extends Controller
         ]);
     }
     
-    public function actionPayMoney($id){
+    public function actionPayMoney(){
+        $id=$_POST['payid'];
+        $payno=$_POST['payno'];
         $withDrawRec=WithdrawRec::findOne($id);
         $user=User::findOne(['user_guid'=>$withDrawRec->user_guid]);
         $wallet=Wallet::findOne(['user_guid'=>$withDrawRec->user_guid]);
         
-        $input = new \WxPayEnterprisePay();
-        $input->SetPartner_trade_no(Orders::getOrderNO());
-        $input->SetOpenid($user->openid);
-        $input->SetCheck_name('OPTION_CHECK');
-        $input->SetRe_user_name($user->name);
-        $input->SetAmount($withDrawRec->amount*100);
-//         $input->SetAmount(100);
-        $input->SetDesc("清友茶业代理商提现");
-        $result=\WxPayApi::enterprisePay($input,2000);
-        if($result['return_code']=='SUCCESS'&&$result['result_code']=="SUCCESS"){
+        
         
             $trans=yii::$app->db->beginTransaction();
             try{
-                $wxEnterprise=new WxEnterprisePay();
-                $wxEnterprise->user_guid=$user->user_guid;
-                $wxEnterprise->openid=$user->openid;
-                $wxEnterprise->partner_trade_no=$result['partner_trade_no'];
-                $wxEnterprise->payment_no=$result['payment_no'];
-                $wxEnterprise->payment_time=$result['payment_time'];
-                $wxEnterprise->created_at=time();
-                if(!$wxEnterprise->save()) throw new Exception('更新退款记录失败');
-                
                 $wallet->paid +=$withDrawRec->amount;
                 $wallet->withdrawing -=$withDrawRec->amount;
                 $wallet->updated_at=time();
                 if(!$wallet->save()) throw new Exception('');
+                $withDrawRec->payno=$payno;
                 $withDrawRec->status=2;
                 $withDrawRec->updated_at=time();
                 if (!$withDrawRec->save()) throw new Exception('');
@@ -135,10 +120,7 @@ class FianceController extends Controller
                 $trans->rollBack();
                 yii::$app->getSession()->setFlash('error','付款失败，数据库错误!');
             }
-        }else {
-            yii::$app->getSession()->setFlash('error','付款失败!'.$result['return_msg']);
-         
-        }
+        
         
         return $this->redirect(yii::$app->request->referrer);
     }
